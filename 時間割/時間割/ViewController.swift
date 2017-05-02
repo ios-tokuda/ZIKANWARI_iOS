@@ -9,9 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //設定で変更可能にしたい。
+    static var Horizontal = 5   //時間割縦数
+    static var Vertical = 5     //時間割横数
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 設定されたタイトルを代入するとナビゲーションコントローラに反映される。
+        self.title = "時間割"
+        
+        // 背景は白色
+        self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view, typically from a nib.
     }
 

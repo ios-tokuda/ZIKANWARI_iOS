@@ -14,6 +14,7 @@
 		0F5067D41EB74DB4007B7747 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */; };
 		0F5067DF1EB74DB5007B7747 /* ___Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067DE1EB74DB5007B7747 /* ___Tests.swift */; };
 		0F5067EA1EB74DB5007B7747 /* ___UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067E91EB74DB5007B7747 /* ___UITests.swift */; };
+		0FE0650C1EB8A33A00CE949D /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE0650B1EB8A33A00CE949D /* TimeTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		0F5067E51EB74DB5007B7747 /* 時間割UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "時間割UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5067E91EB74DB5007B7747 /* ___UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "___UITests.swift"; sourceTree = "<group>"; };
 		0F5067EB1EB74DB5007B7747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FE0650B1EB8A33A00CE949D /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067D51EB74DB4007B7747 /* Info.plist */,
+				0FE0650B1EB8A33A00CE949D /* TimeTable.swift */,
 			);
 			path = "時間割";
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F5067DF1EB74DB5007B7747 /* ___Tests.swift in Sources */,
+				0FE0650C1EB8A33A00CE949D /* TimeTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

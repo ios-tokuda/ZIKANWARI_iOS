@@ -8,6 +8,7 @@
 
 import Foundation
 
+//この列挙多分いらない
 public enum Day:String{
     case Sun = "日"
     case Mon = "月"

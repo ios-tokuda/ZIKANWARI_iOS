@@ -19,6 +19,7 @@ public enum Day:String{
     case Sat = "土"
 }
 
+//このクラスいる？
 class TimeTable {
     public var Name:String
     public var Teacher:String

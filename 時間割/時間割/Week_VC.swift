@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class Week_VC: UIViewController {
     
     public let DAYS :[String] = ["月", "火", "水", "木", "金", "土"]
     
@@ -20,13 +20,15 @@ class ViewController: UIViewController {
     let haba:CGFloat = 20  //端のラベルの幅
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
+    var nowDay:Int = 0  //今の曜日
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //設定を読み込ませたい
         self.Len_V = 5
-        self.Len_H = 6
+        self.Len_H = 5
         
         // 設定されたタイトルを代入するとナビゲーションコントローラに反映される。
         self.title = "時間割"
@@ -35,7 +37,7 @@ class ViewController: UIViewController {
         //時間割のボタンを表示
         self.drawTTButtons()
         // 背景は白色
-        self.view.backgroundColor = UIColor.gray
+        self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view, typically from a nib.
         
         
@@ -55,14 +57,14 @@ class ViewController: UIViewController {
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
             
             // UILabelの背景を白色に.
-            label.backgroundColor = UIColor.white
+            label.backgroundColor = UIColor.gray
             
             //labelの枠線
-            label.layer.borderColor = UIColor.gray.cgColor
+            label.layer.borderColor = UIColor.black.cgColor
             label.layer.borderWidth = 1.0;
             
             // 文字の色を白に定義.
-            label.textColor = UIColor.black
+            label.textColor = UIColor.white
             
             // UILabelに文字を代入.
             label.text = String(i+1)
@@ -84,15 +86,15 @@ class ViewController: UIViewController {
             // Labelを作成.
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
         
-            // UILabelの背景を白色に.
-            label.backgroundColor = UIColor.white
+            // UILabelの背景を灰色に.
+            label.backgroundColor = UIColor.gray
         
             //labelの枠線
-            label.layer.borderColor = UIColor.gray.cgColor
+            label.layer.borderColor = UIColor.black.cgColor
             label.layer.borderWidth = 1.0;
         
             // 文字の色を白に定義.
-            label.textColor = UIColor.black
+            label.textColor = UIColor.white
         
             // UILabelに文字を代入.
             label.text = self.DAYS[i]
@@ -118,8 +120,6 @@ class ViewController: UIViewController {
                 let posY: CGFloat = self.edge_NC + self.haba + CGFloat(i)*(bHeight + self.space)
                 
                 // Labelを作成.
-                //let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
-                
                 ttButton.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight)
                 
                 
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
                 ttButton.backgroundColor = UIColor.white
                 
                 //labelの枠線
-                ttButton.layer.borderColor = UIColor.gray.cgColor
+                ttButton.layer.borderColor = UIColor.black.cgColor
                 ttButton.layer.borderWidth = 1.0;
                 
                 // タイトルを設定する(通常時).
@@ -139,7 +139,7 @@ class ViewController: UIViewController {
                 ttButton.setTitleColor(UIColor.black, for: .highlighted)
                 
                 // イベントを追加する
-                ttButton.addTarget(self, action: #selector(ViewController.onClickMyButton(sender:)), for: .touchUpInside)
+                ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
 
                 // ボタンにタグをつける.
                 ttButton.tag = j + 5 * i

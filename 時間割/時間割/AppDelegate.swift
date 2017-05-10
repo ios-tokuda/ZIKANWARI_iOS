@@ -21,14 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {//[NSObject: AnyObject]?) -> Bool {
         
         // ViewControllerを生成する.
-        let myViewController: ViewController = ViewController()
+        let FirstViewController: UIViewController = Week_VC()
         
         // myFirstViewControllerをrootviewに設定し、Navication Controllerを生成する.
-        let myNavigationController: UINavigationController = UINavigationController(rootViewController: myViewController)
+        let NavigationController: UINavigationController = UINavigationController(rootViewController: FirstViewController)
         
         
         // rootViewControllerにNavigationControllerを設定する.
-        self.window?.rootViewController = myNavigationController
+        self.window?.rootViewController = NavigationController
         
         // NavigationControllerを表示する.
         self.window?.makeKeyAndVisible()

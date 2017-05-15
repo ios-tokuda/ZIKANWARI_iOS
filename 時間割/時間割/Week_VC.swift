@@ -17,7 +17,7 @@ class Week_VC: UIViewController {
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
     var Len_V:Int = 5     //時間割横数
-    let haba:CGFloat = 20  //端のラベルの幅
+    let haba:CGFloat = 40  //端のラベルの幅
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日

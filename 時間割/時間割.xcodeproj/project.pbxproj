@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03E0373C1EC984F6008BE84E /* One_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E0373B1EC984F6008BE84E /* One_VC.swift */; };
 		0F5067CA1EB74DB4007B7747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067C91EB74DB4007B7747 /* AppDelegate.swift */; };
 		0F5067CC1EB74DB4007B7747 /* Week_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067CB1EB74DB4007B7747 /* Week_VC.swift */; };
 		0F5067CF1EB74DB4007B7747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5067CD1EB74DB4007B7747 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03E0373B1EC984F6008BE84E /* One_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = One_VC.swift; sourceTree = "<group>"; };
 		0F5067C61EB74DB4007B7747 /* 時間割.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "時間割.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5067C91EB74DB4007B7747 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F5067CB1EB74DB4007B7747 /* Week_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week_VC.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				0F5067DE1EB74DB5007B7747 /* ___Tests.swift */,
 				0F5067E01EB74DB5007B7747 /* Info.plist */,
+				03E0373B1EC984F6008BE84E /* One_VC.swift */,
 			);
 			path = "時間割Tests";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				0F5067DF1EB74DB5007B7747 /* ___Tests.swift in Sources */,
 				0FE0650C1EB8A33A00CE949D /* TimeTable.swift in Sources */,
+				03E0373C1EC984F6008BE84E /* One_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

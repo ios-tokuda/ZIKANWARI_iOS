@@ -163,9 +163,13 @@ class Week_VC: UIViewController {
         print("sender.tag: \(sender.tag)")
         
 
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewControllerWithIdentifier("next") as! One_VC
-        self.presentViewController(nextView, animated: true, completion: nil)
+        // 遷移するViewを定義する.
+        print("お米")
+        let mySecondViewController: UIViewController = One_VC()
+        // アニメーションを設定する.
+        mySecondViewController.modalTransitionStyle = .partialCurl
+        // Viewの移動する.
+        self.present(mySecondViewController, animated: true, completion: nil)
     }
 
 }

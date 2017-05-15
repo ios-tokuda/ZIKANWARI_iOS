@@ -161,6 +161,11 @@ class Week_VC: UIViewController {
     internal func onClickMyButton(sender: UIButton) {
         print("onClickMyButton:");
         print("sender.tag: \(sender.tag)")
+        
+
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewControllerWithIdentifier("next") as! One_VC
+        self.presentViewController(nextView, animated: true, completion: nil)
     }
 
 }

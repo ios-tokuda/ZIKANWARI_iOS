@@ -5,7 +5,7 @@
 //  Created by 浅見朋 on 2017/05/02.
 //  Copyright © 2017年 浅見朋. All rights reserved.
 //
-
+import RealmSwift
 import Foundation
 
 //この列挙多分いらない

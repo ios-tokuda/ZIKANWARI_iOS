@@ -10,14 +10,14 @@ import UIKit
 
 class Week_VC: UIViewController {
     
-    public let DAYS :[String] = ["月", "火", "水", "木", "金", "土"]
+    public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
     
     
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
     var Len_V:Int = 5     //時間割横数
-    let haba:CGFloat = 20  //端のラベルの幅
+    let haba:CGFloat = 40  //端のラベルの幅
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
@@ -30,14 +30,18 @@ class Week_VC: UIViewController {
         self.Len_V = 5
         self.Len_H = 5
         
+        //今を取得
+        let now = Date()
+        let calendar = Calendar.current
+        
         // 設定されたタイトルを代入するとナビゲーションコントローラに反映される。
-        self.title = "時間割"
+        self.title = String(calendar.component(.month, from: now)) + "月" + String(calendar.component(.day, from: now)) + "日 " + self.WEEK_DAYS[calendar.component(.weekday, from: now) - 1] + "曜日"
         //端のラベルを表示
         self.drawEdgeLabels();
         //時間割のボタンを表示
         self.drawTTButtons()
-        // 背景は白色
-        self.view.backgroundColor = UIColor.white
+        // 背景色
+        self.view.backgroundColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
         // Do any additional setup after loading the view, typically from a nib.
         
         
@@ -56,12 +60,9 @@ class Week_VC: UIViewController {
             // Labelを作成.
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
             
-            // UILabelの背景を白色に.
-            label.backgroundColor = UIColor.gray
+            // UILabelの背景
+            label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
             
-            //labelの枠線
-            label.layer.borderColor = UIColor.black.cgColor
-            label.layer.borderWidth = 1.0;
             
             // 文字の色を白に定義.
             label.textColor = UIColor.white
@@ -87,17 +88,17 @@ class Week_VC: UIViewController {
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
         
             // UILabelの背景を灰色に.
-            label.backgroundColor = UIColor.gray
-        
-            //labelの枠線
-            label.layer.borderColor = UIColor.black.cgColor
-            label.layer.borderWidth = 1.0;
-        
+            if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
+                label.backgroundColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
+            }else{
+                label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+            }
+            
             // 文字の色を白に定義.
             label.textColor = UIColor.white
         
             // UILabelに文字を代入.
-            label.text = self.DAYS[i]
+            label.text = self.WEEK_DAYS[i + 1]
         
             // Textを中央寄せにする.
             label.textAlignment = NSTextAlignment.center
@@ -127,15 +128,15 @@ class Week_VC: UIViewController {
                 ttButton.backgroundColor = UIColor.white
                 
                 //labelの枠線
-                ttButton.layer.borderColor = UIColor.black.cgColor
+                ttButton.layer.borderColor = UIColor.gray.cgColor
                 ttButton.layer.borderWidth = 1.0;
                 
                 // タイトルを設定する(通常時).
-                ttButton.setTitle("( ^ω^)", for: .normal)
+                ttButton.setTitle("", for: .normal)
                 ttButton.setTitleColor(UIColor.black, for: .normal)
                 
                 // タイトルを設定する(ハイライト時).
-                ttButton.setTitle("(　ﾟДﾟ)", for: .highlighted)
+                ttButton.setTitle("", for: .highlighted)
                 ttButton.setTitleColor(UIColor.black, for: .highlighted)
                 
                 // イベントを追加する
@@ -164,12 +165,9 @@ class Week_VC: UIViewController {
         
 
         // 遷移するViewを定義する.
-        print("お米")
         let mySecondViewController: UIViewController = One_VC()
-        // アニメーションを設定する.
-        mySecondViewController.modalTransitionStyle = .partialCurl
         // Viewの移動する.
-        self.present(mySecondViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }
 
 }

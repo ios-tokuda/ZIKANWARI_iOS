@@ -14,6 +14,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
     private var myTableView: UITableView!
     
+    init(tag:Int){
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

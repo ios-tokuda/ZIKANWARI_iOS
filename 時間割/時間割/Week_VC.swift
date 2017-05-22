@@ -145,7 +145,7 @@ class Week_VC: UIViewController {
                 ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
 
                 // ボタンにタグをつける.
-                ttButton.tag = j + 5 * i
+                ttButton.tag = j + 10 * i
 
                 
                 // ViewにBottunを追加.

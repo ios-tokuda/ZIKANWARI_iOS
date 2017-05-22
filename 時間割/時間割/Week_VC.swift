@@ -193,7 +193,7 @@ class Week_VC: UIViewController {
         
 
         // 遷移するViewを定義する.
-        let mySecondViewController: One_VC = One_VC(tag:sender.tag)
+        let mySecondViewController: One_VC = One_VC()
         
         
         // Viewの移動する.

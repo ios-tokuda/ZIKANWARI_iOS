@@ -14,8 +14,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
     private var myTableView: UITableView!
     
-    init(tag:Int){
-        
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {

@@ -21,7 +21,8 @@ class Week_VC: UIViewController {
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
-    var Background:UIColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
+    
+    var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class Week_VC: UIViewController {
         //時間割のボタンを表示
         self.drawTTButtons()
         // 背景色
-        self.view.backgroundColor = self.Background
+        self.view.backgroundColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
         // Do any additional setup after loading the view, typically from a nib.
         
         
@@ -65,8 +66,8 @@ class Week_VC: UIViewController {
             label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
             
             
-            // 文字の色
-            label.textColor = UIColor.black
+            // 文字の色を白に定義.
+            label.textColor = UIColor.white
             
             // UILabelに文字を代入.
             label.text = String(i+1)
@@ -80,7 +81,7 @@ class Week_VC: UIViewController {
         for i in 0..<Len_H{
             // ボタンのサイズを定義.
             let bWidth: CGFloat = CGFloat(CGFloat(view.bounds.width - self.haba)/CGFloat(Len_H)) - self.space
-            let bHeight: CGFloat = (self.haba - self.space)/2
+            let bHeight: CGFloat = self.haba - self.space
             // 配置する座標を定義
             let posX: CGFloat = self.haba + CGFloat(i)*(bWidth + self.space)
             let posY: CGFloat = self.edge_NC
@@ -88,11 +89,15 @@ class Week_VC: UIViewController {
             // Labelを作成.
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
         
-            // UILabelの背景
-            label.backgroundColor = self.Background
+            // UILabelの背景を灰色に.
+            if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
+                label.backgroundColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
+            }else{
+                label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+            }
             
             // 文字の色を白に定義.
-            label.textColor = UIColor.black
+            label.textColor = UIColor.white
         
             // UILabelに文字を代入.
             label.text = self.WEEK_DAYS[i + 1]
@@ -103,40 +108,9 @@ class Week_VC: UIViewController {
             // ViewにLabelを追加.
             self.view.addSubview(label)
         }
-        
-        for i in 0..<Len_H{
-            // ボタンのサイズを定義.
-            let bWidth: CGFloat = CGFloat(CGFloat(view.bounds.width - self.haba)/CGFloat(Len_H)) - self.space
-            let bHeight: CGFloat = (self.haba - self.space)/2
-            // 配置する座標を定義
-            let posX: CGFloat = self.haba + CGFloat(i)*(bWidth + self.space)
-            let posY: CGFloat = self.edge_NC + (self.haba - self.space)/2
-            
-            // Labelを作成.
-            let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
-            
-            // UILabelの背景を灰色に.
-            if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
-                label.backgroundColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
-            }else{
-                label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
-            }
-            
-            // 文字の色を白に定義.
-            label.textColor = UIColor.black
-            
-            // UILabelに文字を代入.
-            //label.text = self.WEEK_DAYS[i + 1]
-            
-            // Textを中央寄せにする.
-            label.textAlignment = NSTextAlignment.center
-            
-            // ViewにLabelを追加.
-            self.view.addSubview(label)
-        }
     }
     
-    func drawTTButtons(){   //時間割ボタン表示
+    func drawTTButtons(){
         
         for i in 0..<Len_V{
             for j in 0..<Len_H{
@@ -171,7 +145,7 @@ class Week_VC: UIViewController {
                 ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
 
                 // ボタンにタグをつける.
-                ttButton.tag = j + 10 * i
+                ttButton.tag = j + 5 * i
 
                 
                 // ViewにBottunを追加.
@@ -191,11 +165,9 @@ class Week_VC: UIViewController {
         print("onClickMyButton:");
         print("sender.tag: \(sender.tag)")
         
-
+        self.delegate.tag = sender.tag
         // 遷移するViewを定義する.
-        let mySecondViewController: One_VC = One_VC()
-        
-        
+        let mySecondViewController: UIViewController = One_VC()
         // Viewの移動する.
         self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }

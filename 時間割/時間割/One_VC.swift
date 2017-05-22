@@ -14,14 +14,14 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
     private var myTableView: UITableView!
     
+    var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var tag:Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tag = self.delegate.tag
         
         // Status Barの高さを取得する.
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height

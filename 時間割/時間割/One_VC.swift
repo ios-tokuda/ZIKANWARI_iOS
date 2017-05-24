@@ -10,72 +10,93 @@ import UIKit
 
 class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Tableで使用する配列を設定する
-    private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
-    private var myTableView: UITableView!
+    // Tableで使用する配列を定義する.
+    private let myiPhoneItems: NSArray = ["iOS9","iOS8", "iOS7", "iOS6", "iOS5", "iOS4"]
+    private let myAndroidItems: NSArray = ["5.x", "4.x", "2.x", "1.x"]
     
-    var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    var tag:Int = -1
+    // Sectionで使用する配列を定義する.
+    private let mySections: NSArray = ["iPhone", "Android"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tag = self.delegate.tag
-        
-        // Status Barの高さを取得する.
+        // Status Barの高さを取得を.する.
         let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
         
         // Viewの高さと幅を取得する.
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
-        // TableViewの生成(Status barの高さをずらして表示).
-        myTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight))
+        // TableViewの生成( status barの高さ分ずらして表示 ).
+        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         
-        // DataSourceを自身に設定する.
+        // DataSourceの設定をする.
         myTableView.dataSource = self
         
-        // Delegateを自身に設定する.
+        // Delegateを設定する.
         myTableView.delegate = self
         
         // Viewに追加する.
         self.view.addSubview(myTableView)
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     /*
-     Cellが選択された際に呼び出される
+     セクションの数を返す.
+     */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return mySections.count
+    }
+    
+    /*
+     セクションのタイトルを返す.
+     */
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return mySections[section] as? String
+    }
+    
+    /*
+     Cellが選択された際に呼び出される.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Num: \(indexPath.row)")
-        print("Value: \(myItems[indexPath.row])")
+        if indexPath.section == 0 {
+            print("Value: \(myiPhoneItems[indexPath.row])")
+        } else if indexPath.section == 1 {
+            print("Value: \(myAndroidItems[indexPath.row])")
+        }
     }
     
     /*
-     Cellの総数を返す.
+     テーブルに表示する配列の総数を返す.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myItems.count
+        if section == 0 {
+            return myiPhoneItems.count
+        } else if section == 1 {
+            return myAndroidItems.count
+        } else {
+            return 0
+        }
     }
     
     /*
-     Cellに値を設定する
+     Cellに値を設定する.
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 再利用するCellを取得する.
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         
-        // Cellに値を設定する.
-        cell.textLabel!.text = "\(myItems[indexPath.row])"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            cell.textLabel?.text = "\(myiPhoneItems[indexPath.row])"
+        } else if indexPath.section == 1 {
+            cell.textLabel?.text = "\(myAndroidItems[indexPath.row])"
+        }
         
         return cell
     }

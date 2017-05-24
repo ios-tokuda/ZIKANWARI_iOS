@@ -110,6 +110,7 @@
 		0F5067C81EB74DB4007B7747 /* 時間割 */ = {
 			isa = PBXGroup;
 			children = (
+				0FE0650B1EB8A33A00CE949D /* TimeTable.swift */,
 				0F14E3E81ECC59CC002DE712 /* One_VC.swift */,
 				0F5067C91EB74DB4007B7747 /* AppDelegate.swift */,
 				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
@@ -117,7 +118,6 @@
 				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067D51EB74DB4007B7747 /* Info.plist */,
-				0FE0650B1EB8A33A00CE949D /* TimeTable.swift */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
 			);
 			path = "時間割";

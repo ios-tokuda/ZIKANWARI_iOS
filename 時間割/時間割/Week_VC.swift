@@ -8,11 +8,11 @@
 
 import UIKit
 
-class Week_VC: UIViewController, UITextFieldDelegate {
+class Week_VC: UIViewController {
     
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
-    private var myTextField: UITextField!
+    
     
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
@@ -22,18 +22,12 @@ class Week_VC: UIViewController, UITextFieldDelegate {
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
     
-    
-
-
-    
+    //deligateにおいてあるメンバにはここからアクセス
+    //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        
-        
         
         
         //設定を読み込ませたい
@@ -46,44 +40,15 @@ class Week_VC: UIViewController, UITextFieldDelegate {
         
         // 設定されたタイトルを代入するとナビゲーションコントローラに反映される。
         self.title = String(calendar.component(.month, from: now)) + "月" + String(calendar.component(.day, from: now)) + "日 " + self.WEEK_DAYS[calendar.component(.weekday, from: now) - 1] + "曜日"
-
         //端のラベルを表示
         self.drawEdgeLabels();
         //時間割のボタンを表示
         self.drawTTButtons()
         // 背景色
-        self.view.backgroundColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
+        self.view.backgroundColor = self.delegate.BGColor
         // Do any additional setup after loading the view, typically from a nib.
         
         
-    }
-    
-    func Input()
-    {
-        // UITextFieldの配置するx,yと幅と高さを設定.
-        let tWidth: CGFloat = 200
-        let tHeight: CGFloat = 30
-        let posX: CGFloat = (self.view.bounds.width - tWidth)/2
-        let posY: CGFloat = (self.view.bounds.height - tHeight)/2
-        
-        // UITextFieldを作成する.
-        myTextField = UITextField(frame: CGRect(x: posX, y: posY, width: tWidth, height: tHeight))
-        
-        // 表示する文字を代入する.
-        myTextField.text = ""
-        
-        // Delegateを自身に設定する
-        myTextField.delegate = self
-        
-        // 枠を表示する.
-        myTextField.borderStyle = .roundedRect
-        
-        // クリアボタンを追加.
-        myTextField.clearButtonMode = .whileEditing
-        
-        // Viewに追加する
-        self.view.addSubview(myTextField)
-
     }
     
     //時間割端のラベルを表示。
@@ -100,7 +65,7 @@ class Week_VC: UIViewController, UITextFieldDelegate {
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
             
             // UILabelの背景
-            label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+            label.backgroundColor = self.delegate.LColorN
             
             
             // 文字の色を白に定義.
@@ -128,9 +93,9 @@ class Week_VC: UIViewController, UITextFieldDelegate {
             
             // UILabelの背景を灰色に.
             if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
-                label.backgroundColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
+                label.backgroundColor = self.delegate.LColorPU
             }else{
-                label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+                label.backgroundColor = self.delegate.LColorN
             }
             
             // 文字の色を白に定義.
@@ -182,7 +147,7 @@ class Week_VC: UIViewController, UITextFieldDelegate {
                 ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
                 
                 // ボタンにタグをつける.
-                ttButton.tag = j + 5 * i
+                ttButton.tag = j + 10 * i
                 
                 
                 // ViewにBottunを追加.
@@ -197,43 +162,16 @@ class Week_VC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    //UITextFieldが編集された直前に呼ばれる
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("textFieldDidBeginEditing: \(textField.text!)")
-    }
-    
-    
-     //UITextFieldが編集された直後に呼ばれる
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("textFieldDidEndEditing: \(textField.text!)")
-    }
-    
-    
-    
-    //改行ボタンが押された際に呼ばれる
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("textFieldShouldReturn \(textField.text!)")
-        
-        // 改行ボタンが押されたらKeyboardを閉じる処理.
-        textField.resignFirstResponder()
-        
-        return true
-    }
-
-    
     //ボタンが押された時の処理。
     internal func onClickMyButton(sender: UIButton) {
         print("onClickMyButton:");
         print("sender.tag: \(sender.tag)")
         
-        self.Input()
-        
         self.delegate.tag = sender.tag
         // 遷移するViewを定義する.
-        //let mySecondViewController: UIViewController = One_VC()
+        let mySecondViewController: UIViewController = One_VC()
         // Viewの移動する.
-        //self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }
     
 }

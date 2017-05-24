@@ -10,93 +10,80 @@ import UIKit
 
 class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Tableで使用する配列を定義する.
-    private let myiPhoneItems: NSArray = ["iOS9","iOS8", "iOS7", "iOS6", "iOS5", "iOS4"]
-    private let myAndroidItems: NSArray = ["5.x", "4.x", "2.x", "1.x"]
+    // Tableで使用する配列を設定する
+    private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
+    private var myTableView: UITableView!
     
-    // Sectionで使用する配列を定義する.
-    private let mySections: NSArray = ["iPhone", "Android"]
+    //deligateにおいてあるメンバにはここからアクセス
+    //VCをまたいで値を渡したい時などに用いる
+    var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    
+    let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
+    
+    var tag:Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Status Barの高さを取得を.する.
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+        self.tag = self.delegate.tag
+        
+        //ナビゲーションコントーラーに反映
+        self.title = "講義名"
+        
+        // 背景色
+        self.view.backgroundColor = self.delegate.BGColor
         
         // Viewの高さと幅を取得する.
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
-        // TableViewの生成( status barの高さ分ずらして表示 ).
-        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
+        // TableViewの生成
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight))
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         
-        // DataSourceの設定をする.
+        // DataSourceを自身に設定する.
         myTableView.dataSource = self
         
-        // Delegateを設定する.
+        // Delegateを自身に設定する.
         myTableView.delegate = self
         
         // Viewに追加する.
         self.view.addSubview(myTableView)
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     /*
-     セクションの数を返す.
-     */
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return mySections.count
-    }
-    
-    /*
-     セクションのタイトルを返す.
-     */
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return mySections[section] as? String
-    }
-    
-    /*
-     Cellが選択された際に呼び出される.
+     Cellが選択された際に呼び出される
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            print("Value: \(myiPhoneItems[indexPath.row])")
-        } else if indexPath.section == 1 {
-            print("Value: \(myAndroidItems[indexPath.row])")
-        }
+        print("Num: \(indexPath.row)")
+        print("Value: \(myItems[indexPath.row])")
     }
     
     /*
-     テーブルに表示する配列の総数を返す.
+     Cellの総数を返す.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return myiPhoneItems.count
-        } else if section == 1 {
-            return myAndroidItems.count
-        } else {
-            return 0
-        }
+        return myItems.count
     }
     
     /*
-     Cellに値を設定する.
+     Cellに値を設定する
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // 再利用するCellを取得する.
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        
-        if indexPath.section == 0 {
-            cell.textLabel?.text = "\(myiPhoneItems[indexPath.row])"
-        } else if indexPath.section == 1 {
-            cell.textLabel?.text = "\(myAndroidItems[indexPath.row])"
-        }
+        // Cellに値を設定する.
+        cell.textLabel!.text = "\(myItems[indexPath.row])"
         
         return cell
     }

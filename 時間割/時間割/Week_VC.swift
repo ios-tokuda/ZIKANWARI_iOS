@@ -22,6 +22,8 @@ class Week_VC: UIViewController {
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
     
+    //deligateにおいてあるメンバにはここからアクセス
+    //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
@@ -43,7 +45,7 @@ class Week_VC: UIViewController {
         //時間割のボタンを表示
         self.drawTTButtons()
         // 背景色
-        self.view.backgroundColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
+        self.view.backgroundColor = self.delegate.BGColor
         // Do any additional setup after loading the view, typically from a nib.
         
         
@@ -63,7 +65,7 @@ class Week_VC: UIViewController {
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
             
             // UILabelの背景
-            label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+            label.backgroundColor = self.delegate.LColorN
             
             
             // 文字の色を白に定義.
@@ -91,9 +93,9 @@ class Week_VC: UIViewController {
         
             // UILabelの背景を灰色に.
             if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
-                label.backgroundColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
+                label.backgroundColor = self.delegate.LColorPU
             }else{
-                label.backgroundColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+                label.backgroundColor = self.delegate.LColorN
             }
             
             // 文字の色を白に定義.

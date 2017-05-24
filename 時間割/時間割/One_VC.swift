@@ -14,7 +14,12 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let myItems: NSArray = ["TEST1", "TEST2", "TEST3"]
     private var myTableView: UITableView!
     
+    //deligateにおいてあるメンバにはここからアクセス
+    //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    
+    let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     
     var tag:Int = -1
     
@@ -23,15 +28,18 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.tag = self.delegate.tag
         
-        // Status Barの高さを取得する.
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+        //ナビゲーションコントーラーに反映
+        self.title = "講義名"
+        
+        // 背景色
+        self.view.backgroundColor = self.delegate.BGColor
         
         // Viewの高さと幅を取得する.
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         
-        // TableViewの生成(Status barの高さをずらして表示).
-        myTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight))
+        // TableViewの生成
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight))
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")

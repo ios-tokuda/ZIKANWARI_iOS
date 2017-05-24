@@ -14,6 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var tag:Int = -1
+    
+    var BGColor:UIColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
+    
+    var LColorN:UIColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
+    
+    var LColorPU:UIColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
 
     /*func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

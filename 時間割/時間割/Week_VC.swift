@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class Week_VC: UIViewController {
     
@@ -22,12 +23,26 @@ class Week_VC: UIViewController {
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
     
+    
+    // デフォルトRealmを取得
+    let realm = try! Realm()
+    
+    
+    
     //deligateにおいてあるメンバにはここからアクセス
     //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let TT:TimeTable = TimeTable();
+        TT.Name = "多変量解析"
+        TT.Teacher = "上浦"
+        TT.Tag = 12
+        TT.Add()
+        
         
         
         //設定を読み込ませたい
@@ -112,7 +127,15 @@ class Week_VC: UIViewController {
         }
     }
     
+    
+    
     func drawTTButtons(){
+        
+        // 一覧を取得：金額を条件に、登録日時が新しい順でソート 配列っぽく使える。
+        let TableList:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag > 0").sorted(byKeyPath: "Tag", ascending: true)
+        
+        //let TT:TimeTable = TimeTable();
+        
         
         for i in 0..<Len_V{
             for j in 0..<Len_H{
@@ -136,11 +159,11 @@ class Week_VC: UIViewController {
                 ttButton.layer.borderWidth = 1.0;
                 
                 // タイトルを設定する(通常時).
-                ttButton.setTitle("", for: .normal)
+                ttButton.setTitle(TableList[0].Name, for: .normal)
                 ttButton.setTitleColor(UIColor.black, for: .normal)
                 
                 // タイトルを設定する(ハイライト時).
-                ttButton.setTitle("", for: .highlighted)
+                ttButton.setTitle(TableList[0].Name, for: .highlighted)
                 ttButton.setTitleColor(UIColor.black, for: .highlighted)
                 
                 // イベントを追加する

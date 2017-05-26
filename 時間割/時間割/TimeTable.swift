@@ -8,21 +8,9 @@
 import Foundation
 import RealmSwift
 
-
-//このクラスを保存する(?)
-class TimeTable :Object {
-    public dynamic var Name:String = "" //講義名
-    public dynamic var Teacher:String = ""  //先生
-    public dynamic var tag:Int = -1 //タグ
-    
-    
-    /*init(Name:String, Teacher:String, tag:Int){
-        self.Name = Name
-        self.Teacher = Teacher
-        self.tag = tag
-    }*/
-
-    public func Save(){
+class Data:Object{
+    dynamic var Tag:Int = -1 //タグ
+    func Add(){
         let realm = try! Realm()
         try! realm.write {
             realm.add(self)
@@ -30,10 +18,16 @@ class TimeTable :Object {
     }
 }
 
-class HomeWork :Object{
-    public dynamic var Tag:Int = -1
-    public dynamic var Name:String = ""
-    public dynamic var Memo:String = ""
-    public dynamic var NTime:Date? = nil
-    
+
+//このクラスを保存する(?)
+class TimeTable :Data {
+    dynamic var Name:String = "" //講義名
+    dynamic var Teacher:String = ""  //先生
+}
+
+
+class HomeWork :Data{
+    dynamic var Name:String = ""
+    dynamic var Memo:String = ""
+    dynamic var NTime:Date? = nil
 }

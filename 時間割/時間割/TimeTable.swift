@@ -13,19 +13,15 @@ import RealmSwift
 class TimeTable :Object {
     public dynamic var Name:String = "" //講義名
     public dynamic var Teacher:String = ""  //先生
-    public dynamic var day:Day = nil    //曜日(月 = 0)
-    public dynamic var time:Int = nil   //時限
     public dynamic var tag:Int = -1 //タグ
     
     
-    init(Name:String, Teacher:String, day:Day, time:Int, tag:Int){
+    /*init(Name:String, Teacher:String, tag:Int){
         self.Name = Name
         self.Teacher = Teacher
-        self.day = day
-        self.time = time
         self.tag = tag
-    }
-    
+    }*/
+
     public func Save(){
         let realm = try! Realm()
         try! realm.write {
@@ -38,6 +34,6 @@ class HomeWork :Object{
     public dynamic var Tag:Int = -1
     public dynamic var Name:String = ""
     public dynamic var Memo:String = ""
-    public dynamic var NTime:Date = nil
+    public dynamic var NTime:Date? = nil
     
 }

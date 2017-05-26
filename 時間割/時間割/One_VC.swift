@@ -18,8 +18,6 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    let TT = TimeTable()
-    let HW = HomeWork()
     
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     

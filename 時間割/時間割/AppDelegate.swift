@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  時間割
 //
@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

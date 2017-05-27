@@ -8,19 +8,10 @@
 import Foundation
 import RealmSwift
 
-class Data:Object{
-    dynamic var Tag:Int = -1 //タグ
-    func Add(){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(self, update:true)
-        }
-    }
-}
-
 
 //このクラスを保存する(?)
-class TimeTable :Data {
+class TimeTable :Object{
+    dynamic var Tag:Int = -1
     dynamic var Name:String = "" //講義名
     dynamic var Teacher:String = ""  //先生
     
@@ -30,8 +21,14 @@ class TimeTable :Data {
 }
 
 
-class HomeWork :Data{
+class HomeWork :Object{
+    dynamic var Id:Int = -1
+    dynamic var Tag:Int = -1
     dynamic var Name:String = ""
     dynamic var Memo:String = ""
     dynamic var NTime:Date? = nil
+    
+    override static func primaryKey() -> String? {
+        return "Id"
+    }
 }

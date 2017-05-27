@@ -13,7 +13,9 @@ class Week_VC: UIViewController {
     
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
+
     
+
     
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
@@ -22,6 +24,7 @@ class Week_VC: UIViewController {
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
+    
     
     
     // デフォルトRealmを取得
@@ -36,13 +39,17 @@ class Week_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*try! realm.write {
+            realm.deleteAll()
+        }*/
         
         let TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Tag = 12
-        TT.Add()
-        
+        try! realm.write {
+            realm.add(TT, update: true)
+        }
         
         
         //設定を読み込ませたい

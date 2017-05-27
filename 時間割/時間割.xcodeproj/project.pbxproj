@@ -116,9 +116,9 @@
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067CD1EB74DB4007B7747 /* Main.storyboard */,
 				0F14E3E81ECC59CC002DE712 /* One_VC.swift */,
+				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
 				0F418D0A1ED7BD1200C900D9 /* TimeTable.swift */,
-				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
 			);
 			path = "時間割";
 			sourceTree = "<group>";

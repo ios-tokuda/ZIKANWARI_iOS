@@ -25,7 +25,7 @@ class Week_VC: UIViewController {
     
     
     // デフォルトRealmを取得
-    let realm = try! Realm()
+    let realm:Realm = try! Realm()
     
     
     

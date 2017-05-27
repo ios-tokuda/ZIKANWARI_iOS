@@ -13,7 +13,7 @@ class Data:Object{
     func Add(){
         let realm = try! Realm()
         try! realm.write {
-            realm.add(self)
+            realm.add(self, update:true)
         }
     }
 }
@@ -23,6 +23,10 @@ class Data:Object{
 class TimeTable :Data {
     dynamic var Name:String = "" //講義名
     dynamic var Teacher:String = ""  //先生
+    
+    override static func primaryKey() -> String? {
+        return "Tag"
+    }
 }
 
 

@@ -14,7 +14,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var className: NSArray = ["331"]            //クラスの場所
     var teachName: NSArray = ["我妻"]             //講師の名前
     var timeName: NSArray = ["16:40~"]          //授業時間
-    var kadai: NSArray = []                     //課題を入れていく
+    var kadai: NSArray = [""]                     //課題を入れていく
     //private let myiPhoneItems: NSArray = ["iOS9","iOS8", "iOS7", "iOS6", "iOS5", "iOS4"]
     //private let myAndroidItems: NSArray = ["5.x", "4.x", "2.x", "1.x"]
     
@@ -22,6 +22,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // Sectionで使用する配列を定義する.
     private let mySections: NSArray = ["教室", "講師", "時間", "課題"]
 
+    
+    
+    
+    var inputKadai: UITextView!
     
     //deligateにおいてあるメンバにはここからアクセス
     //VCをまたいで値を渡したい時などに用いる
@@ -49,7 +53,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.title = "講義名"
         
         //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myRightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
         
         //ナビゲーションバーの右に設置する
         self.navigationItem.rightBarButtonItem = myRightButton
@@ -92,10 +96,13 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     /*
-     ボタンイベント.
+     +ボタンが押された時のイベント
      */
     internal func onClickMyButton(sender: UIButton){
-            self.view.backgroundColor = UIColor.red
+        let showInput = AlertInput().showAlert(vc: self)
+        
+        
+        self.view.backgroundColor = UIColor.red
     }
 
     
@@ -167,3 +174,6 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+

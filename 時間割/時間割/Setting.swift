@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Seting: UIViewController {
+class Setting: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

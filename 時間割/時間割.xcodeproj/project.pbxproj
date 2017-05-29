@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03519D5D1EDA672D00AB2172 /* AlertInput.swift */; };
+		03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E895931ED7BA1200F7EF85 /* TimeTable.swift */; };
 		0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14E3E81ECC59CC002DE712 /* One_VC.swift */; };
 		0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41BF4C1ED1ECF500669CB8 /* Setting.swift */; };
 		0F5067CA1EB74DB4007B7747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067C91EB74DB4007B7747 /* AppDelegate.swift */; };
@@ -18,7 +20,6 @@
 		0F5067EA1EB74DB5007B7747 /* ___UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067E91EB74DB5007B7747 /* ___UITests.swift */; };
 		0FD04C631ECC63FD0084AE1C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C611ECC63FD0084AE1C /* Realm.framework */; };
 		0FD04C641ECC63FD0084AE1C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */; };
-		0FE0650C1EB8A33A00CE949D /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE0650B1EB8A33A00CE949D /* TimeTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03519D5D1EDA672D00AB2172 /* AlertInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertInput.swift; sourceTree = "<group>"; };
+		03E895931ED7BA1200F7EF85 /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		0F14E3E81ECC59CC002DE712 /* One_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = One_VC.swift; sourceTree = "<group>"; };
 		0F41BF4C1ED1ECF500669CB8 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		0F5067C61EB74DB4007B7747 /* 時間割.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "時間割.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +59,6 @@
 		0F5067EB1EB74DB5007B7747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FD04C611ECC63FD0084AE1C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		0FE0650B1EB8A33A00CE949D /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,13 +113,14 @@
 			isa = PBXGroup;
 			children = (
 				0F14E3E81ECC59CC002DE712 /* One_VC.swift */,
+				03519D5D1EDA672D00AB2172 /* AlertInput.swift */,
 				0F5067C91EB74DB4007B7747 /* AppDelegate.swift */,
+				03E895931ED7BA1200F7EF85 /* TimeTable.swift */,
 				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
 				0F5067CD1EB74DB4007B7747 /* Main.storyboard */,
 				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067D51EB74DB4007B7747 /* Info.plist */,
-				0FE0650B1EB8A33A00CE949D /* TimeTable.swift */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
 			);
 			path = "時間割";
@@ -307,6 +310,8 @@
 				0F5067CC1EB74DB4007B7747 /* Week_VC.swift in Sources */,
 				0F5067CA1EB74DB4007B7747 /* AppDelegate.swift in Sources */,
 				0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */,
+				03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */,
+				03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */,
 				0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,7 +321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F5067DF1EB74DB5007B7747 /* ___Tests.swift in Sources */,
-				0FE0650C1EB8A33A00CE949D /* TimeTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

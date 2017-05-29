@@ -25,7 +25,7 @@ class Week_VC: UIViewController {
     //deligateにおいてあるメンバにはここからアクセス
     //VCをまたいで値を渡したい時などに用いる
     var delegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,10 +87,10 @@ class Week_VC: UIViewController {
             // 配置する座標を定義
             let posX: CGFloat = self.haba + CGFloat(i)*(bWidth + self.space)
             let posY: CGFloat = self.edge_NC
-        
+            
             // Labelを作成.
             let label: UILabel = UILabel(frame: CGRect(x: posX, y: posY, width: bWidth, height: bHeight))
-        
+            
             // UILabelの背景を灰色に.
             if (Calendar.current.component(.weekday, from: Date()) - 2) == i{
                 label.backgroundColor = self.delegate.LColorPU
@@ -100,13 +100,13 @@ class Week_VC: UIViewController {
             
             // 文字の色を白に定義.
             label.textColor = UIColor.white
-        
+            
             // UILabelに文字を代入.
             label.text = self.WEEK_DAYS[i + 1]
-        
+            
             // Textを中央寄せにする.
             label.textAlignment = NSTextAlignment.center
-        
+            
             // ViewにLabelを追加.
             self.view.addSubview(label)
         }
@@ -145,10 +145,10 @@ class Week_VC: UIViewController {
                 
                 // イベントを追加する
                 ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
-
+                
                 // ボタンにタグをつける.
                 ttButton.tag = j + 10 * i
-
+                
                 
                 // ViewにBottunを追加.
                 self.view.addSubview(ttButton)
@@ -156,7 +156,7 @@ class Week_VC: UIViewController {
         }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -173,6 +173,6 @@ class Week_VC: UIViewController {
         // Viewの移動する.
         self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }
-
+    
 }
 

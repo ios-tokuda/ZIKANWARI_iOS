@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03519D5D1EDA672D00AB2172 /* AlertInput.swift */; };
+		03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E895931ED7BA1200F7EF85 /* TimeTable.swift */; };
 		0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14E3E81ECC59CC002DE712 /* One_VC.swift */; };
-		0F418D0B1ED7BD1200C900D9 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F418D0A1ED7BD1200C900D9 /* TimeTable.swift */; };
 		0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41BF4C1ED1ECF500669CB8 /* Setting.swift */; };
 		0F5067CA1EB74DB4007B7747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067C91EB74DB4007B7747 /* AppDelegate.swift */; };
 		0F5067CC1EB74DB4007B7747 /* Week_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5067CB1EB74DB4007B7747 /* Week_VC.swift */; };
@@ -39,8 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03519D5D1EDA672D00AB2172 /* AlertInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertInput.swift; sourceTree = "<group>"; };
+		03E895931ED7BA1200F7EF85 /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		0F14E3E81ECC59CC002DE712 /* One_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = One_VC.swift; sourceTree = "<group>"; };
-		0F418D0A1ED7BD1200C900D9 /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		0F41BF4C1ED1ECF500669CB8 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		0F5067C61EB74DB4007B7747 /* 時間割.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "時間割.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5067C91EB74DB4007B7747 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,15 +112,16 @@
 		0F5067C81EB74DB4007B7747 /* 時間割 */ = {
 			isa = PBXGroup;
 			children = (
-				0F5067C91EB74DB4007B7747 /* AppDelegate.swift */,
-				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
-				0F5067D51EB74DB4007B7747 /* Info.plist */,
-				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
-				0F5067CD1EB74DB4007B7747 /* Main.storyboard */,
 				0F14E3E81ECC59CC002DE712 /* One_VC.swift */,
+				03519D5D1EDA672D00AB2172 /* AlertInput.swift */,
+				0F5067C91EB74DB4007B7747 /* AppDelegate.swift */,
+				03E895931ED7BA1200F7EF85 /* TimeTable.swift */,
 				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
+				0F5067CD1EB74DB4007B7747 /* Main.storyboard */,
+				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
+				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
+				0F5067D51EB74DB4007B7747 /* Info.plist */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
-				0F418D0A1ED7BD1200C900D9 /* TimeTable.swift */,
 			);
 			path = "時間割";
 			sourceTree = "<group>";
@@ -305,9 +308,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F5067CC1EB74DB4007B7747 /* Week_VC.swift in Sources */,
-				0F418D0B1ED7BD1200C900D9 /* TimeTable.swift in Sources */,
 				0F5067CA1EB74DB4007B7747 /* AppDelegate.swift in Sources */,
 				0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */,
+				03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */,
+				03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */,
 				0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

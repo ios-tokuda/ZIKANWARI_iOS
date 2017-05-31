@@ -51,7 +51,6 @@ class Week_VC: UIViewController {
             realm.add(TT, update: true)
         }
         
-        
         //設定を読み込ませたい
         self.Len_V = 5
         self.Len_H = 5
@@ -138,14 +137,13 @@ class Week_VC: UIViewController {
     
     func drawTTButtons(){
         
-        // 一覧を取得：金額を条件に、登録日時が新しい順でソート 配列っぽく使える。
-        let TableList:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag > 0").sorted(byKeyPath: "Tag", ascending: true)
-        
-        //let TT:TimeTable = TimeTable();
-        
         
         for i in 0..<Len_V{
             for j in 0..<Len_H{
+                // ボタンに対応するTimeTableを取得
+                let TableList:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(j + 10 * i))
+                
+                
                 let ttButton: UIButton! = UIButton()
                 // ボタンのサイズを定義.
                 let bWidth: CGFloat = CGFloat(CGFloat(view.bounds.width - self.haba)/CGFloat(Len_H)) - self.space
@@ -165,12 +163,22 @@ class Week_VC: UIViewController {
                 ttButton.layer.borderColor = UIColor.gray.cgColor
                 ttButton.layer.borderWidth = 1.0;
                 
-                // タイトルを設定する(通常時).
-                ttButton.setTitle(TableList[0].Name, for: .normal)
-                ttButton.setTitleColor(UIColor.black, for: .normal)
+                // タイトルを設定する
+                //ついでに同一タグのがあったら他のを消し飛ばす
+                if TableList.count > 0 {
+                    ttButton.setTitle(TableList[0].Name, for: .normal)
+                    ttButton.setTitle(TableList[0].Name, for: .highlighted)
+                    if TableList.count > 1{//余計なデータがあった場合
+                        for k in 1..<TableList.count{//消します。
+                            print("わかめ")
+                            try! realm.write {
+                                realm.delete(TableList[k])
+                            }
+                        }
+                    }
+                }
                 
-                // タイトルを設定する(ハイライト時).
-                ttButton.setTitle(TableList[0].Name, for: .highlighted)
+                ttButton.setTitleColor(UIColor.black, for: .normal)
                 ttButton.setTitleColor(UIColor.black, for: .highlighted)
                 
                 // イベントを追加する

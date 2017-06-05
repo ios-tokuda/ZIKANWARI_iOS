@@ -43,13 +43,13 @@ class Week_VC: UIViewController {
             realm.deleteAll()
         }*/
         
-        let TT:TimeTable = TimeTable();
+        /*let TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Tag = 12
         try! realm.write {
             realm.add(TT, update: true)
-        }
+        }*/
         
         //設定を読み込ませたい
         self.Len_V = 5
@@ -69,6 +69,10 @@ class Week_VC: UIViewController {
         self.view.backgroundColor = self.delegate.BGColor
         // Do any additional setup after loading the view, typically from a nib.
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
     }
     

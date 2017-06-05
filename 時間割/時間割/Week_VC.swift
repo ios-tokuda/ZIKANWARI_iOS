@@ -48,9 +48,7 @@ class Week_VC: UIViewController {
             realm.deleteAll()
         }*/
         
-<<<<<<< HEAD
         /*let TT:TimeTable = TimeTable();
-=======
         //左ボタンを作成する
         myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
         myLeftButton.tag = 100
@@ -66,7 +64,6 @@ class Week_VC: UIViewController {
         
         
         let TT:TimeTable = TimeTable();
->>>>>>> 3adea8b2a5c28b2e0ab3e20424d0b0372e1282af
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Tag = 12

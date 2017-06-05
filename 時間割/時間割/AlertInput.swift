@@ -13,7 +13,7 @@ class AlertInput: UIAlertController
     var delegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     
-    func showAlert(vc:One_VC){
+    func OneInput(vc:One_VC){
         
         let alertCtr = UIAlertController(title: "課題",
                                          message: "入力してください",
@@ -23,6 +23,7 @@ class AlertInput: UIAlertController
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "テキスト"
         })
+        
         
         
         let cancelAction:UIAlertAction = UIAlertAction(title: "追加",
@@ -35,6 +36,7 @@ class AlertInput: UIAlertController
                                                             
                                                             // アラートに含まれるすべてのテキストフィールドを調べる
                                                             for textField in textFields {
+                                                                self.delegate.taskName = textField.text!
                                                                 print(textField.text!)
                                                             }
                                                         }
@@ -55,11 +57,54 @@ class AlertInput: UIAlertController
                                                                 print("Cancel")
         })
         
-        
         alertCtr.addAction(cancelAction)
         alertCtr.addAction(timeAction)
         alertCtr.addAction(destructiveAction)
         
         vc.present(alertCtr, animated: true, completion: nil)
     }
+    
+    func WeekInput(vc:Week_VC)
+    {
+        let alertCtr = UIAlertController(title: "編集",
+                                         message: "入力してください",
+                                         preferredStyle: .alert)
+        
+        // テキストフィールドの追加
+        alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
+            textField.placeholder = "教科"})
+        alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
+            textField.placeholder = "講師"})
+        alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
+            textField.placeholder = "教室"})
+        
+        //追加ボタンの追加
+        let addAction:UIAlertAction = UIAlertAction(title: "追加",
+                                                       style: UIAlertActionStyle.cancel,
+                                                       handler:{
+                                                        (action:UIAlertAction!) -> Void in
+                                                        print("追加")
+                                                        // 追加を押した時入力されていたテキストを表示
+                                                        if let textFields = alertCtr.textFields {
+                                                            
+                                                            // アラートに含まれるすべてのテキストフィールドを調べる
+                                                            for textField in textFields {
+                                                                print(textField.text!)
+                                                            }
+                                                        }
+        })
+        
+        //キャンセルボタンの追加
+        let destructiveAction: UIAlertAction = UIAlertAction(title: "Cancel",
+                                                             style: UIAlertActionStyle.destructive,
+                                                             handler:{
+                                                                (action:UIAlertAction!) -> Void in print("Cancel")
+        })
+        
+        //ボタンの表示
+        alertCtr.addAction(addAction)
+        alertCtr.addAction(destructiveAction)
+        
+    }
+    
 }

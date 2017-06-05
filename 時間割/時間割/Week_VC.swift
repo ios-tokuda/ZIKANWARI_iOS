@@ -48,17 +48,13 @@ class Week_VC: UIViewController {
             realm.deleteAll()
         }*/
         
+        //let TT:TimeTable = TimeTable();
+        
+
+        
+        
+        
         /*let TT:TimeTable = TimeTable();
-        
-        //編集ボタンをナビゲーションバーの右に設置する
-        self.navigationItem.leftBarButtonItem = myLeftButton
-        //設定ボタンをナビゲーションバーの右に設置する
-        self.navigationItem.rightBarButtonItem = myRightButton
-        
-        
-        
-        
-        let TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Tag = 12
@@ -71,6 +67,12 @@ class Week_VC: UIViewController {
         myLeftButton.tag = 100
         //右ボタンを作成する
         myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        
+        
+        //編集ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.leftBarButtonItem = myLeftButton
+        //設定ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.rightBarButtonItem = myRightButton
         
         
         //設定を読み込ませたい

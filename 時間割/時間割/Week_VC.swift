@@ -60,7 +60,7 @@ class Week_VC: UIViewController {
         TT.Tag = 12
         try! realm.write {
             realm.add(TT, update: true)
-        }*/
+        }*//////
         
         //左ボタンを作成する
         myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))

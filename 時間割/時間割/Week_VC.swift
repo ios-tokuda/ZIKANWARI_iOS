@@ -30,6 +30,10 @@ class Week_VC: UIViewController {
     // デフォルトRealmを取得
     let realm:Realm = try! Realm()
     
+    //ナビゲーションボタンの生成
+    private var myLeftButton: UIBarButtonItem!
+    private var myRightButton: UIBarButtonItem!
+    
     
     
     //deligateにおいてあるメンバにはここからアクセス
@@ -39,11 +43,30 @@ class Week_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         /*try! realm.write {
             realm.deleteAll()
         }*/
         
+<<<<<<< HEAD
         /*let TT:TimeTable = TimeTable();
+=======
+        //左ボタンを作成する
+        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myLeftButton.tag = 100
+        //右ボタンを作成する
+        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        
+        //編集ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.leftBarButtonItem = myLeftButton
+        //設定ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.rightBarButtonItem = myRightButton
+        
+        
+        
+        
+        let TT:TimeTable = TimeTable();
+>>>>>>> 3adea8b2a5c28b2e0ab3e20424d0b0372e1282af
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Tag = 12

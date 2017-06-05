@@ -11,10 +11,13 @@ import UIKit
 class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Tableで使用する配列を定義する.
-    var className: NSArray = ["331"]            //クラスの場所
-    var teachName: NSArray = ["我妻"]             //講師の名前
-    var timeName: NSArray = ["16:40~"]          //授業時間
-    var kadai: NSArray = [""]                     //課題を入れていく
+    var className: Array = ["331"]            //クラスの場所
+    var teachName: Array = ["我妻"]             //講師の名前
+    var timeName: Array = ["16:40~"]          //授業時間
+    var taskName: [String] = []                  //課題を入れていく
+    
+    var taskN = "!!!"
+    
     //private let myiPhoneItems: NSArray = ["iOS9","iOS8", "iOS7", "iOS6", "iOS5", "iOS4"]
     //private let myAndroidItems: NSArray = ["5.x", "4.x", "2.x", "1.x"]
     
@@ -55,7 +58,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //右ボタンを作成する
         myRightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
         
-        //ナビゲーションバーの右に設置する
+        //ナビゲー１ションバーの右に設置する
         self.navigationItem.rightBarButtonItem = myRightButton
         
         
@@ -91,7 +94,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resources that can be recrp0eated.
     }
     
     
@@ -99,9 +102,14 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
      +ボタンが押された時のイベント
      */
     internal func onClickMyButton(sender: UIButton){
-        let showInput = AlertInput().showAlert(vc: self)
+        let showInput = AlertInput().OneInput(vc: self)
         
-        
+        //self.taskN = self.delegate.taskName
+        print(taskN)
+        print(taskN)
+        print(taskN)
+        print(taskN)
+        //self.taskName.append(self.delegate.taskName)
         self.view.backgroundColor = UIColor.red
     }
 
@@ -131,7 +139,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 2 {
             print("Value: \(timeName[indexPath.row])")
         } else if indexPath.section == 3 {
-            print("Value: \(kadai[indexPath.row])")
+            print("Value: \(taskName[indexPath.row])")
         }
     }
     
@@ -147,7 +155,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return timeName.count
         } else if section == 3
         {
-            return kadai.count
+            return taskName.count
         }else {
             return 0
         }
@@ -167,7 +175,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 2 {
             cell.textLabel?.text = "\(timeName[indexPath.row])"
         } else if indexPath.section == 3 {
-            cell.textLabel?.text = "\(kadai[indexPath.row])"
+            cell.textLabel?.text = "\(taskName[indexPath.row])"
         }
         
         return cell

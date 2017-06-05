@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var tag:Int = -1
     
+    //Alertinputから値を渡すための変数
+    var taskName:String!
+    var timeName:String!
+    var teachName:String!
+    var className:String!
+    
     let BGColor:UIColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
     
     let LColorN:UIColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)

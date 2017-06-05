@@ -49,11 +49,6 @@ class Week_VC: UIViewController {
         }*/
         
         /*let TT:TimeTable = TimeTable();
-        //左ボタンを作成する
-        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
-        myLeftButton.tag = 100
-        //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
         
         //編集ボタンをナビゲーションバーの右に設置する
         self.navigationItem.leftBarButtonItem = myLeftButton
@@ -70,6 +65,13 @@ class Week_VC: UIViewController {
         try! realm.write {
             realm.add(TT, update: true)
         }*/
+        
+        //左ボタンを作成する
+        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myLeftButton.tag = 100
+        //右ボタンを作成する
+        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        
         
         //設定を読み込ませたい
         self.Len_V = 5

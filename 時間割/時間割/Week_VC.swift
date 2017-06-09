@@ -63,10 +63,10 @@ class Week_VC: UIViewController {
         }*//////
         
         //左ボタンを作成する
-        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
         myLeftButton.tag = 100
         //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(self.ControlButton(sender:)))
         
         
         //編集ボタンをナビゲーションバーの右に設置する
@@ -173,6 +173,7 @@ class Week_VC: UIViewController {
                 
                 
                 let ttButton: UIButton! = UIButton()
+                
                 // ボタンのサイズを定義.
                 let bWidth: CGFloat = CGFloat(CGFloat(view.bounds.width - self.haba)/CGFloat(Len_H)) - self.space
                 let bHeight: CGFloat = CGFloat(CGFloat(view.bounds.height - self.haba - self.edge_NC)/CGFloat(Len_V)) - self.space
@@ -182,7 +183,7 @@ class Week_VC: UIViewController {
                 
                 // Labelを作成.
                 ttButton.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight)
-                
+                ttButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 
                 // UILabelの背景を白色に.
                 ttButton.backgroundColor = UIColor.white
@@ -239,6 +240,13 @@ class Week_VC: UIViewController {
         // Viewの移動する.
         self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }
+    internal func EditButton(sender: UIButton){
+        print("編集ボタンが押されました");
+    }
+    internal func ControlButton(sender: UIButton){
+        print("設定ボタンが押されました");
+    }
+    
     
 }
 

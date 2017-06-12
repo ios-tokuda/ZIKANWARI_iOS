@@ -13,9 +13,6 @@ class Week_VC: UIViewController {
     
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
-
-    
-
     
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
@@ -24,6 +21,8 @@ class Week_VC: UIViewController {
     let edge_NC:CGFloat = 64 //ナビゲーションコントローラの下端の座標 全端末共通
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
+    let ttInfoLabelHight:CGFloat = 20   //時間割の教室やらを表示するラベルの高さ。
+    
     
     
     
@@ -43,24 +42,15 @@ class Week_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        /*try! realm.write {
-            realm.deleteAll()
-        }*/
-        
-        //let TT:TimeTable = TimeTable();
-        
-
-        
-        
-        
-        /*let TT:TimeTable = TimeTable();
+        /*試験運用する際に使用してください
+        let TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
+        TT.Room = "6103"
         TT.Tag = 12
         try! realm.write {
             realm.add(TT, update: true)
-        }*//////
+        }*/
         
         //左ボタンを作成する
         myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
@@ -182,24 +172,55 @@ class Week_VC: UIViewController {
                 let posY: CGFloat = self.edge_NC + self.haba + CGFloat(i)*(bHeight + self.space)
                 
                 // Labelを作成.
-                ttButton.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight)
+                ttButton.frame = CGRect(x: posX, y: posY, width: bWidth, height: bHeight-ttInfoLabelHight)
                 ttButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 
                 // UILabelの背景を白色に.
                 ttButton.backgroundColor = UIColor.white
                 
-                //labelの枠線
+                //buttonの枠線
                 ttButton.layer.borderColor = UIColor.gray.cgColor
                 ttButton.layer.borderWidth = 1.0;
+                
+                
+                
+                // ボタンのサイズを定義.
+                let lWidth: CGFloat = bWidth
+                let lHeight: CGFloat = ttInfoLabelHight
+                // 配置する座標を定義
+                let lposX: CGFloat = posX
+                let lposY: CGFloat = posY + bHeight - ttInfoLabelHight
+                
+                // Labelを作成.
+                let label: UILabel = UILabel(frame: CGRect(x: lposX, y: lposY, width: lWidth, height: lHeight))
+                
+                // UILabelの背景
+                label.backgroundColor = UIColor.white
+                label.adjustsFontSizeToFitWidth = true
+
+                
+                
+                
+                // 文字の色を黒に定義.
+                label.textColor = UIColor.black
+                
+                label.adjustsFontSizeToFitWidth = true
+                
+                label.layer.borderColor = UIColor.gray.cgColor
+                label.layer.borderWidth = 1.0;
+
+                
                 
                 // タイトルを設定する
                 //ついでに同一タグのがあったら他のを消し飛ばす
                 if TableList.count > 0 {
                     ttButton.setTitle(TableList[0].Name, for: .normal)
                     ttButton.setTitle(TableList[0].Name, for: .highlighted)
+                    // UILabelに文字を代入.
+                    label.text = TableList[0].Room  //String(i+1)
                     if TableList.count > 1{//余計なデータがあった場合
                         for k in 1..<TableList.count{//消します。
-                            print("わかめ")
+                            print("余計なものがあった")
                             try! realm.write {
                                 realm.delete(TableList[k])
                             }
@@ -210,6 +231,15 @@ class Week_VC: UIViewController {
                 ttButton.setTitleColor(UIColor.black, for: .normal)
                 ttButton.setTitleColor(UIColor.black, for: .highlighted)
                 
+                
+                
+                // Textを中央寄せにする.
+                label.textAlignment = NSTextAlignment.center
+                
+                // ViewにLabelを追加.
+                self.view.addSubview(label)
+                
+                
                 // イベントを追加する
                 ttButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
                 
@@ -219,6 +249,9 @@ class Week_VC: UIViewController {
                 
                 // ViewにBottunを追加.
                 self.view.addSubview(ttButton)
+                
+                
+                
             }
         }
         
@@ -240,9 +273,11 @@ class Week_VC: UIViewController {
         // Viewの移動する.
         self.navigationController?.pushViewController(mySecondViewController, animated: true)
     }
+    //編集ボタンが押されたとき
     internal func EditButton(sender: UIButton){
         print("編集ボタンが押されました");
     }
+    //設定ボタンが押されたとき
     internal func ControlButton(sender: UIButton){
         print("設定ボタンが押されました");
     }

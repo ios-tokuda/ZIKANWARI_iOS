@@ -22,13 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var teachName:String!
     var className:String!
     
+    //背景色
     let BGColor:UIColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
-    
+    //通常ラベルカラー
     let LColorN:UIColor = UIColor(red:0.37, green:0.67, blue:0.83, alpha:1)
-    
+    //現在曜日のラベルカラー
     let LColorPU:UIColor = UIColor(red:0.99, green:0.75, blue:0.18, alpha:1)
     
-    //let realm:Realm = try! Realm()
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {//[NSObject: AnyObject]?) -> Bool {

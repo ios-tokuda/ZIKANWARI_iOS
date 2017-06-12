@@ -6,13 +6,15 @@
 //  Copyright © 2017年 浅見朋. All rights reserved.
 //
 
+
 import UIKit
 
 class PickTime: UIViewController, UIPickerViewDelegate {
     
     private var myTextField: UITextField!
     
-    func pickTime(one: One_VC){
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
         
@@ -22,13 +24,12 @@ class PickTime: UIViewController, UIPickerViewDelegate {
         // datePickerを設定（デフォルトでは位置は画面上部）する.
         myDatePicker.frame = CGRect(x:0, y:50, width:self.view.frame.width, height:200)
         myDatePicker.timeZone = NSTimeZone.local
-        myDatePicker.backgroundColor = UIColor.black
+        myDatePicker.backgroundColor = UIColor.white
         myDatePicker.layer.cornerRadius = 5.0
         myDatePicker.layer.shadowOpacity = 0.5
         
-        
         // 値が変わった際のイベントを登録する.
-        myDatePicker.addTarget(self, action: #selector(self.onDidChangeDate(sender:)), for: .valueChanged)
+        myDatePicker.addTarget(self, action: #selector(PickTime.onDidChangeDate(sender:)), for: .valueChanged)
         
         // DataPickerをViewに追加する.
         self.view.addSubview(myDatePicker)
@@ -40,9 +41,9 @@ class PickTime: UIViewController, UIPickerViewDelegate {
         myTextField.layer.position = CGPoint(x: self.view.bounds.width/2,y: self.view.bounds.height - 100);
         
         // UITextFieldをViewに追加する.
-        one.view.addSubview(myTextField)
+        self.view.addSubview(myTextField)
         
-
+        print("ピッカー")
     }
     
     /*

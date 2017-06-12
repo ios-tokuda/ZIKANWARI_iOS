@@ -54,6 +54,8 @@ class AlertInput: UIAlertController
                                                         handler:{
                                                             (action:UIAlertAction!) -> Void in
                                                             print("日時")
+                                                            //PickTimeへ遷移するメソッド
+                                                            one.sendPickTime()
         })
         
         let destructiveAction:UIAlertAction = UIAlertAction(title: "Cancel",

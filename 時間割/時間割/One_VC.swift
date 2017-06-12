@@ -203,6 +203,16 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func sendPickTime()
+    {
+        // 遷移するViewを定義する.
+        let picktime: UIViewController = PickTime()
+        // Viewの移動する.
+        self.navigationController?.pushViewController(picktime, animated: true)
+        
+
+    }
+    
 }
 
 //課題追加に関する入出力を行なうクラス

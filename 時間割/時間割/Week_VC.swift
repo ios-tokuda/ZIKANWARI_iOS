@@ -42,7 +42,7 @@ class Week_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*試験運用する際に使用してください
+        //試験運用する際に使用してください
         let TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
@@ -50,7 +50,20 @@ class Week_VC: UIViewController {
         TT.Tag = 12
         try! realm.write {
             realm.add(TT, update: true)
-        }*/
+         
+        }
+        
+        let HW:HomeWork = HomeWork()
+        HW.Id = 1
+        HW.Tag = 12
+        HW.Name = "中間レポート"
+        HW.Memo = "めんどいのではよ進めろ"
+        HW.isFinished = false
+        try! realm.write {
+            realm.add(HW, update: true)
+            
+        }
+        
         
         //左ボタンを作成する
         myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
@@ -161,7 +174,7 @@ class Week_VC: UIViewController {
                 // ボタンに対応するTimeTableを取得
                 let TableList:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(j + 10 * i))
                 
-                
+                let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(j + 10 * i))
                 let ttButton: UIButton! = UIButton()
                 
                 // ボタンのサイズを定義.
@@ -177,7 +190,14 @@ class Week_VC: UIViewController {
                 
                 // UILabelの背景を白色に.
                 ttButton.backgroundColor = UIColor.white
-                
+                if WorkList.count > 0{
+                    for k in 0..<WorkList.count{
+                        if !(WorkList[k].isFinished){
+                            ttButton.backgroundColor = self.delegate.LColorPU
+                            break
+                        }
+                    }
+                }
                 //buttonの枠線
                 ttButton.layer.borderColor = UIColor.gray.cgColor
                 ttButton.layer.borderWidth = 1.0;

@@ -13,7 +13,11 @@ class Week_VC: UIViewController {
     
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
-
+    //仮に表示するための変数
+    var className = ""
+    var classRoomName = ""
+    var teachName = ""
+    
     
 
     
@@ -25,6 +29,8 @@ class Week_VC: UIViewController {
     let space:CGFloat = 1   //ラベル間の隙間の幅
     var nowDay:Int = 0  //今の曜日
     
+    //各コマが現在編集可能かを判別する変数
+    var edit:Bool = false
     
     
     // デフォルトRealmを取得
@@ -67,6 +73,7 @@ class Week_VC: UIViewController {
         myLeftButton.tag = 100
         //右ボタンを作成する
         myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(Week_VC.onClickMyButton(sender:)))
+        myRightButton.tag = 200
         
         
         //編集ボタンをナビゲーションバーの右に設置する
@@ -94,10 +101,18 @@ class Week_VC: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
+        self.createCurriculum()
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    
+    func createCurriculum()
+    {
+        //端のラベルを表示
+        self.drawEdgeLabels();
+        //時間割のボタンを表示
+        self.drawTTButtons()
+
     }
     
     //時間割端のラベルを表示。
@@ -165,6 +180,17 @@ class Week_VC: UIViewController {
     
     func drawTTButtons(){
         
+        //タグが初期値じゃなければ入力された値をTimeTableに代入する
+        if self.delegate.tag != -1{
+            let TT:TimeTable = TimeTable();
+            TT.Name = className
+            TT.Teacher = teachName
+            TT.Tag = self.delegate.tag
+            try! realm.write {
+            realm.add(TT, update: true)
+            }
+            
+        }
         
         for i in 0..<Len_V{
             for j in 0..<Len_H{
@@ -233,11 +259,35 @@ class Week_VC: UIViewController {
         print("onClickMyButton:");
         print("sender.tag: \(sender.tag)")
         
+        //押されたボタンのタグを他ファイルで使用する
         self.delegate.tag = sender.tag
-        // 遷移するViewを定義する.
-        let mySecondViewController: UIViewController = One_VC()
-        // Viewの移動する.
-        self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        
+        //編集状態か否か
+        if edit == true{
+            //編集ボタンと設定ボタンは大きいタグを用いて別に処理
+            if sender.tag == 100{
+                myLeftButton.title = "編集"
+                edit = false
+            }else if sender.tag == 200{
+                
+            }else{
+                //各値の入力へ
+                AlertInput().WeekInput(week: self)
+            }
+        }else if sender.tag == 100{
+            myLeftButton.title = "終了"
+            edit = true
+        }else if sender.tag == 200{
+            
+        }else{
+            // 遷移するViewを定義する.
+            let mySecondViewController: UIViewController = One_VC()
+            // Viewの移動する.
+            self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        }
+        
+
+
     }
     
 }

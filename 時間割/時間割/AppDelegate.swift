@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var timeName:String!
     var teachName:String!
     var className:String!
+    var classRoomName:String!
     
     let BGColor:UIColor = UIColor(red:0.47, green:0.81, blue:0.95, alpha:1)
     

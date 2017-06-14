@@ -26,7 +26,6 @@ class HomeWork :Object{
     dynamic var Id:Int = -1 //各課題の識別
     dynamic var Tag:Int = -1    //対応する講義
     dynamic var Name:String = ""    //課題名
-    dynamic var Memo:String = ""    //課題内容など
     dynamic var NTime:Date? = nil     //締め切り時刻
     dynamic var isFinished:Bool = false //終わってるか否か
     

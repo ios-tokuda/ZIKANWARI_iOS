@@ -102,7 +102,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
      +ボタンが押された時のイベント
      */
     internal func onClickMyButton(sender: UIButton){
-        let showInput = AlertInput().OneInput(vc: self)
+        let showInput = AlertInput().OneInput(one: self)
         
         //self.taskN = self.delegate.taskName
         print(taskN)

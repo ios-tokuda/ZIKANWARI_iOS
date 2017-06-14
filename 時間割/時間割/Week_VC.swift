@@ -14,6 +14,12 @@ class Week_VC: UIViewController {
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
     
+    //仮に表示するための変数
+    var className = ""
+    var classRoomName = ""
+    var teachName = ""
+    
+    
     //設定で変更可能にしたい。
     var Len_H:Int = 5  //時間割縦数
     var Len_V:Int = 5     //時間割横数
@@ -23,15 +29,17 @@ class Week_VC: UIViewController {
     var nowDay:Int = 0  //今の曜日
     let ttInfoLabelHight:CGFloat = 20   //時間割の教室やらを表示するラベルの高さ。
     
-    
+    //各コマが現在編集可能かを判別する変数
+    var edit:Bool = false
     
     
     // デフォルトRealmを取得
     let realm:Realm = try! Realm()
     
     //ナビゲーションボタンの生成
+    private var myRightButton2: UIBarButtonItem!
+    private var myRightButton1: UIBarButtonItem!
     private var myLeftButton: UIBarButtonItem!
-    private var myRightButton: UIBarButtonItem!
     
     
     
@@ -43,7 +51,7 @@ class Week_VC: UIViewController {
         super.viewDidLoad()
         
         //試験運用する際に使用してください
-        let TT:TimeTable = TimeTable();
+        var TT:TimeTable = TimeTable();
         TT.Name = "多変量解析"
         TT.Teacher = "上浦"
         TT.Room = "6103"
@@ -52,31 +60,67 @@ class Week_VC: UIViewController {
             realm.add(TT, update: true)
          
         }
-        
-        let HW:HomeWork = HomeWork()
+        var HW:HomeWork = HomeWork()
         HW.Id = 1
         HW.Tag = 12
         HW.Name = "中間レポート"
-        HW.Memo = "めんどいのではよ進めろ"
         HW.isFinished = false
         try! realm.write {
             realm.add(HW, update: true)
             
         }
+        //試験運用する際に使用してください
+        TT = TimeTable();
+        TT.Name = "コンピュータープログラミング・同演習Ⅱ"
+        TT.Teacher = "生徒による"
+        TT.Room = "クラスごとに"
+        TT.Tag = 3
+        try! realm.write {
+            realm.add(TT, update: true)
+            
+        }
+        HW = HomeWork()
+        HW.Id = 2
+        HW.Tag = 12
+        HW.Name = "課題"
+        HW.isFinished = true
+        try! realm.write {
+            realm.add(HW, update: true)
+            
+        }
+        
+        //試験運用する際に使用してください
+        TT = TimeTable();
+        TT.Name = "なんちゃら"
+        TT.Teacher = "生徒による"
+        TT.Room = "テニスコート"
+        TT.Tag = 0
+        try! realm.write {
+            realm.add(TT, update: true)
+            
+        }
+        
+        //編集ボタン
+        myRightButton2 = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
+        //設定ボタン
+        myRightButton1 = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(self.ControlButton(sender:)))
+        //myRightButton1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.camera, target: self, action: #selector(self.ControlButton(sender:)))
+        
+        myLeftButton = UIBarButtonItem(title: "全課題", style: .plain, target: self, action: #selector(self.AllHWButton(sender:)))
         
         
-        //左ボタンを作成する
-        myLeftButton = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
-        myLeftButton.tag = 100
-        //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(self.ControlButton(sender:)))
-        
-        
-        //編集ボタンをナビゲーションバーの右に設置する
         self.navigationItem.leftBarButtonItem = myLeftButton
-        //設定ボタンをナビゲーションバーの右に設置する
-        self.navigationItem.rightBarButtonItem = myRightButton
         
+        /*//編集ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.leftBarButtonItem = myRightButton2
+        //設定ボタンをナビゲーションバーの右に設置する
+        self.navigationItem.rightBarButtonItem = myRightButton1
+        */
+        // Barの右に配置するボタンを配列に格納する.
+        let myRightButton1s: NSArray = [myRightButton1, myRightButton2]
+
+        // Barの右側に複数配置する.
+        self.navigationItem.setRightBarButtonItems(myRightButton1s as? [UIBarButtonItem], animated: true)
         
         //設定を読み込ませたい
         self.Len_V = 5
@@ -96,6 +140,16 @@ class Week_VC: UIViewController {
         self.view.backgroundColor = self.delegate.BGColor
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.createCurriculum()
+        
+    }
+    
+    func createCurriculum()
+    {
+        //端のラベルを表示
+        self.drawEdgeLabels();
+        //時間割のボタンを表示
+        self.drawTTButtons()
         
     }
     
@@ -168,6 +222,18 @@ class Week_VC: UIViewController {
     
     func drawTTButtons(){
         
+        
+        //タグが初期値じゃなければ入力された値をTimeTableに代入する
+        if self.delegate.tag != -1{
+            let TT:TimeTable = TimeTable();
+            TT.Name = className
+            TT.Teacher = teachName
+            TT.Tag = self.delegate.tag
+            try! realm.write {
+                realm.add(TT, update: true)
+            }
+            
+        }
         
         for i in 0..<Len_V{
             for j in 0..<Len_H{
@@ -288,18 +354,42 @@ class Week_VC: UIViewController {
         print("sender.tag: \(sender.tag)")
         
         self.delegate.tag = sender.tag
-        // 遷移するViewを定義する.
-        let mySecondViewController: UIViewController = One_VC()
-        // Viewの移動する.
-        self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        
+        if self.edit{
+            //各値の入力へ
+            AlertInput().WeekInput(week: self)
+            
+            
+        }else{
+        
+            // 遷移するViewを定義する.
+            let mySecondViewController: UIViewController = One_VC()
+            // Viewの移動する.
+            self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        }
+    }
+    internal func AllHWButton(sender: UIButton){
+        print("課題リストボタンが押されたんだよぉ！")
     }
     //編集ボタンが押されたとき
     internal func EditButton(sender: UIButton){
-        print("編集ボタンが押されました");
+        print("編集ボタンが押されました")
+        
+        if self.edit{
+            
+            myRightButton2.title = "編集"
+            edit = false
+        }else{
+            myRightButton2.title = "終了"
+            edit = true
+        }
+        
     }
     //設定ボタンが押されたとき
     internal func ControlButton(sender: UIButton){
-        print("設定ボタンが押されました");
+        print("設定ボタンが押されました")
+        
+        
     }
     
     

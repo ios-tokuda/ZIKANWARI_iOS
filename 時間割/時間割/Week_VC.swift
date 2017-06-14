@@ -388,7 +388,10 @@ class Week_VC: UIViewController {
     //設定ボタンが押されたとき
     internal func ControlButton(sender: UIButton){
         print("設定ボタンが押されました")
-        
+        // 遷移するViewを定義する.
+        let mySecondViewController: UIViewController = ViewController()
+        // Viewの移動する.
+        self.navigationController?.pushViewController(mySecondViewController, animated: true)
         
     }
     

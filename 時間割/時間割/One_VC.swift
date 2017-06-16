@@ -27,6 +27,12 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let mySections: NSArray = ["教室", "講師", "時間", "課題"]
 
     
+    // Status Barの高さを取得をする.
+    var barHeight: CGFloat!
+    
+    // Viewの高さと幅を取得する.
+    var displayWidth: CGFloat!
+    var displayHeight: CGFloat!
     
     
     var inputKadai: UITextView!
@@ -56,6 +62,15 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //NavigationControllerのタイトルを設定する
         self.title = "講義名"
         
+        // Status Barの高さを取得をする.
+        barHeight = UIApplication.shared.statusBarFrame.size.height
+        
+        // Viewの高さと幅を取得する.
+        displayWidth = self.view.frame.width
+        displayHeight = self.view.frame.height
+
+        
+        
         //右ボタンを作成する
         myRightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
         
@@ -65,49 +80,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.createSection()
         
-        
-        // Status Barの高さを取得をする.
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
+        self.createDisplay()
 
-
-
-        let frame : UIView = UIView(frame: CGRect(x: 0, y: barHeight+50, width: displayWidth, height: 100))
-        let innerFrame : UIView = UIView(frame: CGRect(x: 5, y: barHeight+50, width: displayWidth-10, height: 95))
-        
-        frame.backgroundColor = self.delegate.BGColor
-        innerFrame.backgroundColor = UIColor.white
-        
-        self.view.addSubview(frame)
-        self.view.addSubview(innerFrame)
-        /*
-        // 背景色
-        self.view.backgroundColor = self.delegate.BGColor
-        
-        // Status Barの高さを取得をする.
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
-        
-        // TableViewの生成( status barの高さ分ずらして表示 ).
-        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
-        
-        // Cell名の登録をおこなう.
-        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        
-        // DataSourceの設定をする.
-        myTableView.dataSource = self
-        
-        // Delegateを設定する.
-        myTableView.delegate = self
-        
-        // Viewに追加する.
-        self.view.addSubview(myTableView)
- */
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,18 +101,98 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //self.taskName.append(self.delegate.taskName)
     }
 
+    //課題以外の表示部分の作成
+    func createDisplay()
+    {
+        Frame()
+        
+        Icon()
+        
+        cLabel()
+        
+    }
+    
+    //外枠より少し小さい内枠をあとからviewに追加することによって枠を作る
+    func Frame()
+    {
+        
+        //外枠と内枠の作成
+        let frame : UIView = UIView(frame: CGRect(x: 0, y: barHeight+50, width: displayWidth, height: 100))
+        let innerFrame : UIView = UIView(frame: CGRect(x: 5, y: barHeight+50, width: displayWidth-10, height: 95))
+        
+        //外枠と内枠の色の指定
+        frame.backgroundColor = self.delegate.BGColor
+        innerFrame.backgroundColor = UIColor.white
+        
+        //外枠と内枠をviewに追加する
+        self.view.addSubview(frame)
+        self.view.addSubview(innerFrame)
+
+    }
+    
+    //アイコンの表示
+    func Icon()
+    {
+        // 講師用、教室用、授業時間用の画像をそれぞれ設定する.
+        let hitoIcon: UIImage = UIImage(named: "hito2.jpg")!
+        let doorIcon: UIImage = UIImage(named: "door2.jpg")!
+        let clockIcon: UIImage = UIImage(named: "clock2.jpg")!
+        
+        //各アイコンの大きさ
+        let imageWidth: CGFloat = 50
+        let imageHeight: CGFloat = 50
+        
+        // それぞれのアイコンの表示用のUIImageViewを生成.
+        let hitoDownView: UIImageView = UIImageView(frame:  CGRect(x: 10, y: barHeight+50, width: imageWidth, height: imageHeight))
+        let doorDownView: UIImageView = UIImageView(frame: CGRect(x: 200, y: barHeight+50, width: imageWidth, height: imageHeight))
+        let clockDownView: UIImageView = UIImageView(frame: CGRect(x: 10, y: barHeight+95, width: imageWidth, height:imageHeight))
+        
+        // UIImageViewにそれぞれのアイコンの画像を設定する.
+        hitoDownView.image = hitoIcon
+        doorDownView.image = doorIcon
+        clockDownView.image = clockIcon
+        
+        // 縮小用(0.5倍)のアフィン行列を生成する.
+        hitoDownView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        doorDownView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        clockDownView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
+        // Viewに追加する.
+        self.view.addSubview(hitoDownView)
+        self.view.addSubview(doorDownView)
+        self.view.addSubview(clockDownView)
+
+    }
+    
+    //ラベルとタイトルの表示
+    func cLabel()
+    {
+        
+        //NavigationControllerのタイトルを設定する
+        self.title = "講義名"
+        
+        // 各項目のLabelを作成.
+        let hitoLabel: UILabel = UILabel(frame: CGRect(x: 55, y: barHeight+50, width: 200, height: 50))
+        let doorLabel: UILabel = UILabel(frame: CGRect(x: 245, y: barHeight+50, width: 200, height: 50))
+        let clockLabel: UILabel = UILabel(frame: CGRect(x: 55, y: barHeight+95, width: 200, height: 50))
+        
+        
+        hitoLabel.text = "ところ天の助"
+        doorLabel.text = "222"
+        clockLabel.text = "9:30 ~ 11:00"
+        
+        // ViewにLabelを追加.
+        self.view.addSubview(hitoLabel)
+        self.view.addSubview(doorLabel)
+        self.view.addSubview(clockLabel)
+
+    }
+    
     //課題セクションを作成(課題の変更を更新)
     func createSection()
     {
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
-        
-        // Status Barの高さを取得をする.
-        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-        
-        // Viewの高さと幅を取得する.
-        let displayWidth: CGFloat = self.view.frame.width
-        let displayHeight: CGFloat = self.view.frame.height
         
         // TableViewの生成( status barの高さ分ずらして表示 ).
         let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight + 100, width: displayWidth, height: displayHeight - barHeight))

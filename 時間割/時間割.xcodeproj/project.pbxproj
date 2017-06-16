@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		03403F321EE95549007E981E /* PickTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03403F311EE95549007E981E /* PickTime.swift */; };
 		03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03519D5D1EDA672D00AB2172 /* AlertInput.swift */; };
+		0399EBFE1EF3BCEA0048A9FC /* clock2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0399EBF81EF3BCEA0048A9FC /* clock2.jpg */; };
+		0399EC001EF3BCEA0048A9FC /* door2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0399EBFA1EF3BCEA0048A9FC /* door2.jpg */; };
+		0399EC021EF3BCEA0048A9FC /* hito2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0399EBFC1EF3BCEA0048A9FC /* hito2.jpg */; };
 		03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E895931ED7BA1200F7EF85 /* TimeTable.swift */; };
 		0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14E3E81ECC59CC002DE712 /* One_VC.swift */; };
 		0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41BF4C1ED1ECF500669CB8 /* Setting.swift */; };
@@ -43,6 +46,9 @@
 /* Begin PBXFileReference section */
 		03403F311EE95549007E981E /* PickTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTime.swift; sourceTree = "<group>"; };
 		03519D5D1EDA672D00AB2172 /* AlertInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertInput.swift; sourceTree = "<group>"; };
+		0399EBF81EF3BCEA0048A9FC /* clock2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = clock2.jpg; path = "../../../Desktop/時間割関連/時間・教室・先生/clock2.jpg"; sourceTree = "<group>"; };
+		0399EBFA1EF3BCEA0048A9FC /* door2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = door2.jpg; path = "../../../Desktop/時間割関連/時間・教室・先生/door2.jpg"; sourceTree = "<group>"; };
+		0399EBFC1EF3BCEA0048A9FC /* hito2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hito2.jpg; path = "../../../Desktop/時間割関連/時間・教室・先生/hito2.jpg"; sourceTree = "<group>"; };
 		03E895931ED7BA1200F7EF85 /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		0F14E3E81ECC59CC002DE712 /* One_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = One_VC.swift; sourceTree = "<group>"; };
 		0F41BF4C1ED1ECF500669CB8 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -122,6 +128,9 @@
 				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
 				0F5067CD1EB74DB4007B7747 /* Main.storyboard */,
 				0F5067D01EB74DB4007B7747 /* Assets.xcassets */,
+				0399EBF81EF3BCEA0048A9FC /* clock2.jpg */,
+				0399EBFA1EF3BCEA0048A9FC /* door2.jpg */,
+				0399EBFC1EF3BCEA0048A9FC /* hito2.jpg */,
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067D51EB74DB4007B7747 /* Info.plist */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
@@ -265,8 +274,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0399EC021EF3BCEA0048A9FC /* hito2.jpg in Resources */,
 				0F5067D41EB74DB4007B7747 /* LaunchScreen.storyboard in Resources */,
 				0F5067D11EB74DB4007B7747 /* Assets.xcassets in Resources */,
+				0399EC001EF3BCEA0048A9FC /* door2.jpg in Resources */,
+				0399EBFE1EF3BCEA0048A9FC /* clock2.jpg in Resources */,
 				0F5067CF1EB74DB4007B7747 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

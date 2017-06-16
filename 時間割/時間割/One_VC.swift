@@ -63,10 +63,25 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationItem.rightBarButtonItem = myRightButton
         
         
-        self.view.backgroundColor = UIColor.red
-        
         self.createSection()
+        
+        
+        // Status Barの高さを取得をする.
+        let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+        
+        // Viewの高さと幅を取得する.
+        let displayWidth: CGFloat = self.view.frame.width
 
+
+
+        let frame : UIView = UIView(frame: CGRect(x: 0, y: barHeight+50, width: displayWidth, height: 100))
+        let innerFrame : UIView = UIView(frame: CGRect(x: 5, y: barHeight+50, width: displayWidth-10, height: 95))
+        
+        frame.backgroundColor = self.delegate.BGColor
+        innerFrame.backgroundColor = UIColor.white
+        
+        self.view.addSubview(frame)
+        self.view.addSubview(innerFrame)
         /*
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
@@ -126,7 +141,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let displayHeight: CGFloat = self.view.frame.height
         
         // TableViewの生成( status barの高さ分ずらして表示 ).
-        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
+        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight + 100, width: displayWidth, height: displayHeight - barHeight))
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
@@ -214,122 +229,3 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
-//課題追加に関する入出力を行なうクラス
-/*
-class AlertInput: UIAlertController
-{
-    var delegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    
-    func OneInput(one:One_VC, time: pickTime){
-        
-        let alertCtr = UIAlertController(title: "課題",
-                                         message: "入力してください",
-                                         preferredStyle: .alert)
-        
-        // テキストフィールドを追加
-        alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-            textField.placeholder = "テキスト"
-        })
-        
-        
-        
-        let timeAction:UIAlertAction = UIAlertAction(title: "期限",
-                                                       style: UIAlertActionStyle.cancel,
-                                                       handler:{
-                                                        (action:UIAlertAction!) -> Void in
-                                                        print("期限")
-                                                        // 追加を押した時入力されていたテキストを表示
-                                                        if let textFields = alertCtr.textFields {
-                                                            
-                                                            // アラートに含まれるすべてのテキストフィールドを調べる
-                                                            for textField in textFields {
-                                                                self.delegate.taskName = textField.text!
-                                                                vc.taskName.append(textField.text!)
-                                                                time.selectTime()
-                                                                print(textField.text!)
-                                                            }
-                                                        }
-                                                        
-        })
-        
-        let destructiveAction:UIAlertAction = UIAlertAction(title: "Cancel",
-                                                            style: UIAlertActionStyle.destructive,
-                                                            handler:{
-                                                                (action:UIAlertAction!) -> Void in
-                                                                print("Cancel")
-        })
-        
-        //ボタンの追加
-        alertCtr.addAction(timeAction)
-        alertCtr.addAction(destructiveAction)
-        
-        //指定されたViewControllerにアラートを表示する
-        vc.present(alertCtr, animated: true, completion: nil)
-    }
-
-}
-
-class pickTime: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    // UIPickerView.
-    private var myUIPicker: UIPickerView!
-    
-    // 表示する値の配列.
-    private let myValues: NSArray = ["その一","その二","その三","その四"]
-    
-    func selectTime(vc: One_VC) {
-        
-        // UIPickerViewを生成.
-        myUIPicker = UIPickerView()
-        
-        // サイズを指定する.
-        myUIPicker.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 180.0)
-        
-        // Delegateを設定する.
-        myUIPicker.delegate = self
-        
-        // DataSourceを設定する.
-        myUIPicker.dataSource = self
-        
-        // Viewに追加する.
-        self.view.addSubview(myUIPicker)
-        
-        vc.createSection()
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    /*
-     pickerに表示する行数を返すデータソースメソッド.
-     (実装必須)
-     */
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return myValues.count
-    }
-    
-    /*
-     pickerに表示する値を返すデリゲートメソッド.
-     */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return myValues[row] as? String
-    }
-    
-    /*
-     pickerが選択された際に呼ばれるデリゲートメソッド.
-     */
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("row: \(row)")
-        print("value: \(myValues[row])")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-}
- */
-
-

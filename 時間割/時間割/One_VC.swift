@@ -10,22 +10,25 @@ import UIKit
 
 class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Tableで使用する配列を定義する.
-    var classRoomName: Array = ["331"]            //クラスの場所
-    var teachName: Array = ["我妻"]             //講師の名前
-    var timeName: Array = ["16:40~"]          //授業時間
-    var taskName: [String] = ["課題"]         //課題を入れていく
-    var deadline: [String] = [""]             //
+    // Tableで使用する配列を設定する
+    var taskName: [String] = []
+    var myTableView: UITableView!
+    let imageNames = ["door2.jpg", "clock2.jpg", "hito2.jpg"]
+    
+    //セルに表示するテキストをいじるときのやつ
+    let tempS = "おまけ"
+    
+    //課題が達成したかどうかの判別(最終的にはHomeWorkクラス作成)
+    var finished = false
+    
+    var deadline: [String] = ["aaa"]             //
     
     var taskN = "!!!"
     
-    //private let myiPhoneItems: NSArray = ["iOS9","iOS8", "iOS7", "iOS6", "iOS5", "iOS4"]
-    //private let myAndroidItems: NSArray = ["5.x", "4.x", "2.x", "1.x"]
+    //バグ(1)セルが無いときにセルを追加するとずれる
+    //バグ(1)解決のための変数
+    var taskExist = false
     
-    
-    // Sectionで使用する配列を定義する.
-    private let mySections: NSArray = ["教室", "講師", "時間", "課題"]
-
     
     // Status Barの高さを取得をする.
     var barHeight: CGFloat!
@@ -194,16 +197,24 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
         
-        // TableViewの生成( status barの高さ分ずらして表示 ).
-        let myTableView: UITableView = UITableView(frame: CGRect(x: 0, y: barHeight + 100, width: displayWidth, height: displayHeight - barHeight))
+        // TableViewの生成(Status barの高さをずらして表示).
+        
+        if taskExist == false{
+            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 100, width: displayWidth, height: displayHeight))
+        }else{
+            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 150, width: displayWidth, height: displayHeight))
+        }
+        
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.imageView?.image = UIImage(named: "hito2.jpg")!
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         
-        // DataSourceの設定をする.
+        // DataSourceを自身に設定する.
         myTableView.dataSource = self
         
-        // Delegateを設定する.
+        // Delegateを自身に設定する.
         myTableView.delegate = self
         
         // Viewに追加する.
@@ -212,62 +223,42 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    //セクションの数を返す.
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return mySections.count
-    }
     
-    
-    //セクションのタイトルを返す.
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return mySections[section] as? String
-    }
-    
-    
-    //Cellが選択された際に呼び出される.
+    //Cellが選択された際に呼び出される
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            print("Value: \(classRoomName[indexPath.row])")
-        } else if indexPath.section == 1 {
-            print("Value: \(teachName[indexPath.row])")
-        } else if indexPath.section == 2 {
-            print("Value: \(timeName[indexPath.row])")
-        } else if indexPath.section == 3 {
-            print("Value: \(taskName[indexPath.row])")
+        if finished{
+            self.finished = false
+        }else{
+            self.finished = true
         }
+        self.createSection()
+        print("Num: \(indexPath.row)")
+        print("Value: \(taskName[indexPath.row])")
     }
     
     
-    //テーブルに表示する配列の総数を返す.
+    //Cellの総数を返す.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return classRoomName.count
-        } else if section == 1 {
-            return teachName.count
-        } else if section == 2 {
-            return timeName.count
-        } else if section == 3
-        {
-            return taskName.count
-        }else {
-            return 0
-        }
+        print("CellCount: \(taskName.count)")
+        return taskName.count
     }
     
-    //Cellに値を設定する.
+    
+    //Cellに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        
-        if indexPath.section == 0 {
-            cell.textLabel?.text = "\(classRoomName[indexPath.row])"
-        } else if indexPath.section == 1 {
-            cell.textLabel?.text = "\(teachName[indexPath.row])"
-        } else if indexPath.section == 2 {
-            cell.textLabel?.text = "\(timeName[indexPath.row])"
-        } else if indexPath.section == 3 {
-            cell.textLabel?.text = "\(taskName[indexPath.row])"
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+        if !self.finished{
+            cell.imageView?.image = UIImage(named: "hito2.jpg")!
+        }else{
+            cell.imageView?.image = UIImage(named: "door2.jpg")!
         }
+        // 再利用するCellを取得する.
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+        
+        // Cellに値を設定する.
+        cell.textLabel!.text = "\(taskName[indexPath.row])"
+        cell.detailTextLabel?.text = "10/9   9:10" // 期限
         
         return cell
     }

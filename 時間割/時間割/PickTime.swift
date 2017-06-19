@@ -11,12 +11,22 @@ import UIKit
 
 class PickTime: UIViewController, UIPickerViewDelegate {
     
+    // picker配列の作成
+    var pickerArray: NSArray = ["楽天", "ソニー", "APPLE", "amazon", "softbank"]
+    var TextField: UITextField!
+    var PickerView: UIPickerView!
+    var ToolBar: UIToolbar!
+    
     private var myTextField: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func pickTime() {
         
         self.view.backgroundColor = UIColor.white
+        
+        // pickerView作成
+        PickerView = UIPickerView()
+        PickerView.showsSelectionIndicator = true
+        PickerView.delegate = self
         
         // DatePickerを生成する.
         let myDatePicker: UIDatePicker = UIDatePicker()

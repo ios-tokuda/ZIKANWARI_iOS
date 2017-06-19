@@ -29,7 +29,7 @@ class AlertInput: UIAlertController
         
         
         
-        /*let cancelAction:UIAlertAction = UIAlertAction(title: "追加",
+        let cancelAction:UIAlertAction = UIAlertAction(title: "追加",
                                                        style: UIAlertActionStyle.cancel,
                                                        handler:{
                                                         (action:UIAlertAction!) -> Void in
@@ -41,22 +41,24 @@ class AlertInput: UIAlertController
                                                             for textField in textFields {
                                                                 //self.delegate.taskName = textField.text!
                                                                 one.taskName.append(textField.text!)
+                                                                
+                                                                one.taskExist = true    //バグ(1)解決のための苦肉の策
                                                                 one.createSection()
 
                                                                 print(textField.text!)
                                                             }
                                                         }
                                                         
-        })*/
+        })
         
-        /*let timeAction:UIAlertAction = UIAlertAction(title: "日時",
+        let timeAction:UIAlertAction = UIAlertAction(title: "日時",
                                                         style: UIAlertActionStyle.default,
                                                         handler:{
                                                             (action:UIAlertAction!) -> Void in
                                                             print("日時")
-                                                            //PickTimeへ遷移するメソッド
+                                                            
                                                             one.sendPickTime()
-        })*/
+        })
         
         let destructiveAction:UIAlertAction = UIAlertAction(title: "Cancel",
                                                             style: UIAlertActionStyle.destructive,
@@ -65,8 +67,8 @@ class AlertInput: UIAlertController
                                                                 print("Cancel")
         })
         
-        //alertCtr.addAction(cancelAction)
-        //alertCtr.addAction(timeAction)
+        alertCtr.addAction(cancelAction)
+        alertCtr.addAction(timeAction)
         alertCtr.addAction(destructiveAction)
         
         one.present(alertCtr, animated: true, completion: nil)

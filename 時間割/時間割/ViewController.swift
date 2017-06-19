@@ -2,13 +2,13 @@ import UIKit
 
 class ViewController: UIViewController {
     var tableView: UITableView!
-       var myButton: UIButton!
-     var youbi_flag=0
+    var myButton: UIButton!
+    var youbi_flag=0
     // セクションの情報を定義
     enum SectionMember: Int {
         case help, about,time, delete,last
         var title: String? {
-            let titles = ["曜日数", "時限数","通知設定","その他の設定",nil]
+            let titles = ["曜日数", "時限数","通知設定","その他の設定"]
             return titles[self.rawValue]
         }
         var count: Int {
@@ -20,28 +20,28 @@ class ViewController: UIViewController {
     enum AccountSectionMember: Int {
         case account, timeline, last
         var title: String? {
-            let titles = ["土曜日の追加", "日曜日の追加", nil]
+            let titles = ["土曜日の追加", "日曜日の追加"]
             return titles[self.rawValue]
         }
     }
     enum SettingSectionMember: Int {
         case sound, data, last
         var title: String? {
-            let titles = ["五限目の追加", "六限目の追加", nil]
+            let titles = ["五限目の追加", "六限目の追加"]
             return titles[self.rawValue]
         }
     }
     enum timeSectionMember: Int {
         case kigen,  last
         var title: String? {
-            let titles = ["通知日の変更",  nil]
+            let titles = ["通知日の変更"]
             return titles[self.rawValue]
         }
     }
     enum deleteSectionMember: Int {
         case kigen,  last
         var title: String? {
-            let titles = ["リセット",  nil]
+            let titles = ["リセット"]
             return titles[self.rawValue]
         }
     }
@@ -79,8 +79,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
         tableView = UITableView(frame: self.view.frame, style: .grouped)
+        
+        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -88,9 +89,8 @@ class ViewController: UIViewController {
         self.view.addSubview(tableView)
         // Swicthを作成する
         let mySwicth: UISwitch = UISwitch()
-        mySwicth.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height/2-250)
-        // Swicthの枠線を表示
-        mySwicth.tintColor = UIColor.black
+        mySwicth.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height/2-250 + 64)
+        //mySwicth.layer.
         // SwitchをOnに設定
         mySwicth.isOn = false
         // SwitchのOn/Off切り替わりの際に、呼ばれるイベントを設定する.
@@ -99,9 +99,7 @@ class ViewController: UIViewController {
         self.view.addSubview(mySwicth)
         // Swicthを作成する
         let mySwicth2: UISwitch = UISwitch()
-        mySwicth2.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height*0.19+10)
-        // Swicthの枠線を表示
-        mySwicth2.tintColor = UIColor.black
+        mySwicth2.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height*0.19+10 + 64)
         // SwitchをOnに設定
         mySwicth2.isOn = false
         // SwitchのOn/Off切り替わりの際に、呼ばれるイベントを設定する.
@@ -110,9 +108,7 @@ class ViewController: UIViewController {
         self.view.addSubview(mySwicth2)
 
         let mySwicth3: UISwitch = UISwitch()
-        mySwicth3.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height - 410)
-        // Swicthの枠線を表示
-        mySwicth3.tintColor = UIColor.black
+        mySwicth3.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height - 410 + 64)
         // SwitchをOnに設定
         mySwicth3.isOn = false
         // SwitchのOn/Off切り替わりの際に、呼ばれるイベントを設定する.
@@ -121,9 +117,7 @@ class ViewController: UIViewController {
         self.view.addSubview(mySwicth3)
         
         let mySwicth4: UISwitch = UISwitch()
-        mySwicth4.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height - 355)
-        // Swicthの枠線を表示
-        mySwicth4.tintColor = UIColor.black
+        mySwicth4.layer.position = CGPoint(x: self.view.frame.width/1.2+10, y: self.view.frame.height - 355 + 64)
         // SwitchをOnに設定
         mySwicth4.isOn = false
         // SwitchのOn/Off切り替わりの際に、呼ばれるイベントを設定する.
@@ -131,7 +125,7 @@ class ViewController: UIViewController {
         // SwitchをViewに追加
         self.view.addSubview(mySwicth4)
         
-        // ボタンを生成.
+        /*// ボタンを生成.
         myButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 50))
         myButton.backgroundColor = UIColor.white
         myButton.layer.cornerRadius = 20.0
@@ -141,7 +135,7 @@ class ViewController: UIViewController {
         myButton.layer.borderWidth = 1.0
         myButton.layer.borderColor = UIColor.black.cgColor
         myButton.addTarget(self, action: #selector(ViewController.onClickMyButton(sender:)), for: .touchUpInside)
-        self.view.addSubview(myButton)
+        self.view.addSubview(myButton)*/
     }
     
     override func didReceiveMemoryWarning() {

@@ -259,7 +259,7 @@ class Week_VC: UIViewController {
                 if WorkList.count > 0{
                     for k in 0..<WorkList.count{
                         if !(WorkList[k].isFinished){
-                            ttButton.backgroundColor = self.delegate.LColorPU
+                            ttButton.backgroundColor = UIColor(red:0.95, green:0.25, blue:0.125, alpha:1)
                             break
                         }
                     }

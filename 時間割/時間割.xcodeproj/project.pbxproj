@@ -22,6 +22,7 @@
 		0F95844B1EF7AD4D00C7009F /* clock2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F95844A1EF7AD4D00C7009F /* clock2.jpg */; };
 		0F95844D1EF7AD5A00C7009F /* door2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F95844C1EF7AD5A00C7009F /* door2.jpg */; };
 		0F95844F1EF7AD6700C7009F /* hito2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F95844E1EF7AD6700C7009F /* hito2.jpg */; };
+		0F9584511EF7ADF900C7009F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9584501EF7ADF900C7009F /* ViewController.swift */; };
 		0FD04C631ECC63FD0084AE1C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C611ECC63FD0084AE1C /* Realm.framework */; };
 		0FD04C641ECC63FD0084AE1C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		0F95844A1EF7AD4D00C7009F /* clock2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = clock2.jpg; path = Assets.xcassets/clock2.imageset/clock2.jpg; sourceTree = "<group>"; };
 		0F95844C1EF7AD5A00C7009F /* door2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = door2.jpg; path = Assets.xcassets/door2.imageset/door2.jpg; sourceTree = "<group>"; };
 		0F95844E1EF7AD6700C7009F /* hito2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hito2.jpg; path = Assets.xcassets/hito2.imageset/hito2.jpg; sourceTree = "<group>"; };
+		0F9584501EF7ADF900C7009F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0FD04C611ECC63FD0084AE1C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 		0F5067C81EB74DB4007B7747 /* 時間割 */ = {
 			isa = PBXGroup;
 			children = (
+				0F9584501EF7ADF900C7009F /* ViewController.swift */,
 				0F95844E1EF7AD6700C7009F /* hito2.jpg */,
 				0F95844C1EF7AD5A00C7009F /* door2.jpg */,
 				0F95844A1EF7AD4D00C7009F /* clock2.jpg */,
@@ -328,6 +331,7 @@
 				03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */,
 				03403F321EE95549007E981E /* PickTime.swift in Sources */,
 				03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */,
+				0F9584511EF7ADF900C7009F /* ViewController.swift in Sources */,
 				0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

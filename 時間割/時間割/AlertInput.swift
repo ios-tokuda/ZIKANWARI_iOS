@@ -41,6 +41,7 @@ class AlertInput: UIAlertController
                                                             for textField in textFields {
                                                                 //self.delegate.taskName = textField.text!
                                                                 one.taskName.append(textField.text!)
+                                                                one.taskN = textField.text!
                                                                 
                                                                 one.taskExist = true    //バグ(1)解決のための苦肉の策
                                                                 one.createSection()

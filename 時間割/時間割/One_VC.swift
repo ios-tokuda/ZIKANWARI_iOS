@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,7 +24,14 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var deadline: [String] = ["aaa"]             //
     
-    var taskN = "!!!"
+    var taskN = ""
+    
+    //Realmに保存された課題を入れる変数
+    var WorkList:Results<HomeWork>!
+    
+    // デフォルトRealmを取得
+    let realm:Realm = try! Realm()
+    
     
     //バグ(1)セルが無いときにセルを追加するとずれる
     //バグ(1)解決のための変数
@@ -107,7 +115,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題以外の表示部分の作成
     func createDisplay()
     {
-        Frame()
+        Appearance()
         
         Icon()
         
@@ -116,20 +124,26 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     //外枠より少し小さい内枠をあとからviewに追加することによって枠を作る
-    func Frame()
+    func Appearance()
     {
         
-        //外枠と内枠の作成
+        //外見の作成
+        //外枠
         let frame : UIView = UIView(frame: CGRect(x: 0, y: barHeight+50, width: displayWidth, height: 100))
+        //内枠
         let innerFrame : UIView = UIView(frame: CGRect(x: 5, y: barHeight+50, width: displayWidth-10, height: 95))
+        //帯
+        let band : UIView = UIView(frame: CGRect(x: 0, y: barHeight+150, width: displayWidth, height: 50))
         
-        //外枠と内枠の色の指定
+        //それぞれの指定
         frame.backgroundColor = self.delegate.BGColor
         innerFrame.backgroundColor = UIColor.white
+        band.backgroundColor = UIColor.white
         
         //外枠と内枠をviewに追加する
         self.view.addSubview(frame)
         self.view.addSubview(innerFrame)
+        self.view.addSubview(band)
 
     }
     
@@ -171,17 +185,29 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func cLabel()
     {
         
+        //現在のタグと一致するTimeTableを呼び出す
+        let table:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(self.tag))
+        print(table[0].Name)
+        
+        //呼び出されたそれぞれの値を代入する(そのまま使おうとするとエラーが起こったため)
+        let titleName = table[0].Name
+        let teachName = table[0].Teacher
+        let roomName = table[0].Room
+        //let timeName =
+        
+        
         //NavigationControllerのタイトルを設定する
-        self.title = "講義名"
+        self.title = titleName
+
         
         // 各項目のLabelを作成.
         let hitoLabel: UILabel = UILabel(frame: CGRect(x: 55, y: barHeight+50, width: 200, height: 50))
         let doorLabel: UILabel = UILabel(frame: CGRect(x: 245, y: barHeight+50, width: 200, height: 50))
         let clockLabel: UILabel = UILabel(frame: CGRect(x: 55, y: barHeight+95, width: 200, height: 50))
         
-        
-        hitoLabel.text = "ところ天の助"
-        doorLabel.text = "222"
+        //ラベルに文字を代入
+        hitoLabel.text = teachName
+        doorLabel.text = roomName
         clockLabel.text = "9:30 ~ 11:00"
         
         // ViewにLabelを追加.
@@ -194,15 +220,31 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題セクションを作成(課題の変更を更新)
     func createSection()
     {
+        
+        //タグが初期値でなければRealmに値を代入する
+        if self.delegate.tag != -1
+        {
+            let HW:HomeWork = HomeWork()
+            HW.Tag = self.delegate.tag
+            HW.Name = self.taskN
+            //HW.Ntime = self.deadline
+            HW.isFinished = false
+            
+            try! realm.write {
+                realm.add(HW, update: true)
+            }
+        }
+
+        
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
         
-        // TableViewの生成(Status barの高さをずらして表示).
+        // TableViewの生成(諸々の高さをずらして表示).
         
         if taskExist == false{
-            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 100, width: displayWidth, height: displayHeight))
-        }else{
             myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 150, width: displayWidth, height: displayHeight))
+        }else{
+            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 200, width: displayWidth, height: displayHeight))
         }
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")

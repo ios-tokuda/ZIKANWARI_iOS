@@ -225,7 +225,7 @@ class Week_VC: UIViewController {
         
         //タグが初期値じゃなければ入力された値をTimeTableに代入する
         if self.delegate.tag != -1{
-            let TT:TimeTable = TimeTable();
+            let TT:TimeTable = TimeTable()
             TT.Name = className
             TT.Teacher = teachName
             TT.Tag = self.delegate.tag

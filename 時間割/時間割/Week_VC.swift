@@ -363,11 +363,15 @@ class Week_VC: UIViewController {
             
             
         }else{
-        
-            // 遷移するViewを定義する.
+            //押されたボタンのTimeTableを取得
+             let Current:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(sender.tag))
+            //TimeTableが存在しないならば遷移しない
+            if Current.count != 0
+            {
+            // 遷移するViewを定義して、Viewを移動する
             let mySecondViewController: UIViewController = One_VC()
-            // Viewの移動する.
             self.navigationController?.pushViewController(mySecondViewController, animated: true)
+            }
         }
     }
     internal func AllHWButton(sender: UIButton){

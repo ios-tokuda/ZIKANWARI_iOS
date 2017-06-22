@@ -305,12 +305,17 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Cellに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //課題が終わったかどうかを表すチェックボックスの画像を生成
+        let boxIcon: UIImage = UIImage(named: "box.jpg")!
+        let checkIcon: UIImage = UIImage(named: "check.jpg")!
         
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
+        
+        //生成したセルの画像部分に終了済みかどうかに合わせて代入
         if !self.finished{
-            cell.imageView?.image = UIImage(named: "hito2.jpg")!
+            cell.imageView?.image = boxIcon
         }else{
-            cell.imageView?.image = UIImage(named: "door2.jpg")!
+            cell.imageView?.image = checkIcon
         }
         // 再利用するCellを取得する.
         //let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)

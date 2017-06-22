@@ -50,55 +50,55 @@ class Week_VC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //試験運用する際に使用してください
-        var TT:TimeTable = TimeTable();
-        TT.Name = "多変量解析"
-        TT.Teacher = "上浦"
-        TT.Room = "6103"
-        TT.Tag = 12
-        try! realm.write {
-            realm.add(TT, update: true)
-         
-        }
-        var HW:HomeWork = HomeWork()
-        HW.Id = 1
-        HW.Tag = 12
-        HW.Name = "中間レポート"
-        HW.isFinished = false
-        try! realm.write {
-            realm.add(HW, update: true)
-            
-        }
-        //試験運用する際に使用してください
-        TT = TimeTable();
-        TT.Name = "コンピュータープログラミング・同演習Ⅱ"
-        TT.Teacher = "生徒による"
-        TT.Room = "クラスごとに"
-        TT.Tag = 3
-        try! realm.write {
-            realm.add(TT, update: true)
-            
-        }
-        HW = HomeWork()
-        HW.Id = 2
-        HW.Tag = 12
-        HW.Name = "課題"
-        HW.isFinished = true
-        try! realm.write {
-            realm.add(HW, update: true)
-            
-        }
-        
-        //試験運用する際に使用してください
-        TT = TimeTable();
-        TT.Name = "なんちゃら"
-        TT.Teacher = "生徒による"
-        TT.Room = "テニスコート"
-        TT.Tag = 0
-        try! realm.write {
-            realm.add(TT, update: true)
-            
-        }
+//        //試験運用する際に使用してください
+//        var TT:TimeTable = TimeTable();
+//        TT.Name = "多変量解析"
+//        TT.Teacher = "上浦"
+//        TT.Room = "6103"
+//        TT.Tag = 12
+//        try! realm.write {
+//            realm.add(TT, update: true)
+//         
+//        }
+//        var HW:HomeWork = HomeWork()
+//        HW.Id = 1
+//        HW.Tag = 12
+//        HW.Name = "中間レポート"
+//        HW.isFinished = false
+//        try! realm.write {
+//            realm.add(HW, update: true)
+//            
+//        }
+//        //試験運用する際に使用してください
+//        TT = TimeTable();
+//        TT.Name = "コンピュータープログラミング・同演習Ⅱ"
+//        TT.Teacher = "生徒による"
+//        TT.Room = "クラスごとに"
+//        TT.Tag = 3
+//        try! realm.write {
+//            realm.add(TT, update: true)
+//            
+//        }
+//        HW = HomeWork()
+//        HW.Id = 2
+//        HW.Tag = 12
+//        HW.Name = "課題"
+//        HW.isFinished = true
+//        try! realm.write {
+//            realm.add(HW, update: true)
+//            
+//        }
+//        
+//        //試験運用する際に使用してください
+//        TT = TimeTable();
+//        TT.Name = "なんちゃら"
+//        TT.Teacher = "生徒による"
+//        TT.Room = "テニスコート"
+//        TT.Tag = 0
+//        try! realm.write {
+//            realm.add(TT, update: true)
+//            
+//        }
         
         //編集ボタン
         myRightButton2 = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
@@ -228,6 +228,7 @@ class Week_VC: UIViewController {
             let TT:TimeTable = TimeTable()
             TT.Name = className
             TT.Teacher = teachName
+            TT.Room = classRoomName
             TT.Tag = self.delegate.tag
             try! realm.write {
                 realm.add(TT, update: true)
@@ -256,14 +257,14 @@ class Week_VC: UIViewController {
                 
                 // UILabelの背景を白色に.
                 ttButton.backgroundColor = UIColor.white
-                if WorkList.count > 0{
-                    for k in 0..<WorkList.count{
-                        if !(WorkList[k].isFinished){
-                            ttButton.backgroundColor = UIColor(red:0.95, green:0.25, blue:0.125, alpha:1)
-                            break
-                        }
-                    }
-                }
+//                if WorkList.count > 0{
+//                    for k in 0..<WorkList.count{
+//                        if !(WorkList[k].isFinished){
+//                            ttButton.backgroundColor = UIColor(red:0.95, green:0.25, blue:0.125, alpha:1)
+//                            break
+//                        }
+//                    }
+//                }
                 //buttonの枠線
                 ttButton.layer.borderColor = UIColor.gray.cgColor
                 ttButton.layer.borderWidth = 1.0;
@@ -355,6 +356,7 @@ class Week_VC: UIViewController {
         
         self.delegate.tag = sender.tag
         
+        //編集モードかどうかで処理を変える
         if self.edit{
             //各値の入力へ
             AlertInput().WeekInput(week: self)
@@ -375,15 +377,17 @@ class Week_VC: UIViewController {
     internal func EditButton(sender: UIButton){
         print("編集ボタンが押されました")
         
+        //編集モードかどうかを変更し、ボタンの文字も変更する
         if self.edit{
-            
-            myRightButton2.title = "編集"
             edit = false
+            myRightButton2.title = "編集"
         }else{
-            myRightButton2.title = "終了"
             edit = true
+            myRightButton2.title = "終了"
         }
         
+        //編集モードかどうかでボタンの色を変えるため呼び出し
+        self.drawTTButtons()
     }
     //設定ボタンが押されたとき
     internal func ControlButton(sender: UIButton){

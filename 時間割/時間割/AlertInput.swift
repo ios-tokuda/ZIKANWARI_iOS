@@ -105,8 +105,8 @@ class AlertInput: UIAlertController
                                                             }
                                                             //格納されたtempの値をWeek_VCの各変数に代入する
                                                             week.className = self.temp[1]
-                                                            week.classRoomName = self.temp[2]
-                                                            week.teachName = self.temp[3]
+                                                            week.teachName = self.temp[2]
+                                                            week.classRoomName = self.temp[3]
                                                             
                                                             week.createCurriculum()
                                                         }

@@ -258,7 +258,7 @@ class Week_VC: UIViewController {
                 // UILabelの背景を白色に.
                 ttButton.backgroundColor = UIColor.white
                 if self.edit{
-                    ttButton.backgroundColor = UIColor(red:0.0, green: 0.0, blue: 0.0, alpha:0.2)
+                    ttButton.backgroundColor = UIColor.gray
                 }
 //                if WorkList.count > 0{
 //                    for k in 0..<WorkList.count{
@@ -287,7 +287,7 @@ class Week_VC: UIViewController {
                 // UILabelの背景
                 label.backgroundColor = UIColor.white
                 if self.edit{
-                    label.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
+                    label.backgroundColor = UIColor.gray
                 }
                 label.adjustsFontSizeToFitWidth = true
 

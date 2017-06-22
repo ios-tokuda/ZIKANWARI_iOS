@@ -135,15 +135,25 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //帯
         let band : UIView = UIView(frame: CGRect(x: 0, y: barHeight+150, width: displayWidth, height: 50))
         
+        let oLine0 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+150, width: displayWidth, height: 2))
+        let oLine1 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+195, width: displayWidth, height: 2))
+        let oLine2 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+200, width: displayWidth, height: 2))
         //それぞれの指定
         frame.backgroundColor = self.delegate.BGColor
         innerFrame.backgroundColor = UIColor.white
         band.backgroundColor = UIColor.white
+        oLine0.backgroundColor = UIColor.black
+        oLine1.backgroundColor = UIColor.black
+        oLine2.backgroundColor = UIColor.black
+        
         
         //外枠と内枠をviewに追加する
         self.view.addSubview(frame)
         self.view.addSubview(innerFrame)
         self.view.addSubview(band)
+        self.view.addSubview(oLine0)
+        self.view.addSubview(oLine1)
+        self.view.addSubview(oLine2)
 
     }
     
@@ -205,15 +215,22 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let doorLabel: UILabel = UILabel(frame: CGRect(x: 245, y: barHeight+50, width: 200, height: 50))
         let clockLabel: UILabel = UILabel(frame: CGRect(x: 55, y: barHeight+95, width: 200, height: 50))
         
+        let taskLabel: UILabel = UILabel(frame: CGRect(x: 73, y: barHeight+150, width: 200, height:50))
+        let timeLabel: UILabel = UILabel(frame: CGRect(x: 275, y: barHeight+150, width: 200, height: 50))
+        
         //ラベルに文字を代入
         hitoLabel.text = teachName
         doorLabel.text = roomName
         clockLabel.text = "9:30 ~ 11:00"
+        taskLabel.text = "課題"
+        timeLabel.text = "提出期限"
         
         // ViewにLabelを追加.
         self.view.addSubview(hitoLabel)
         self.view.addSubview(doorLabel)
         self.view.addSubview(clockLabel)
+        self.view.addSubview(taskLabel)
+        self.view.addSubview(timeLabel)
 
     }
     
@@ -242,9 +259,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // TableViewの生成(諸々の高さをずらして表示).
         
         if taskExist == false{
-            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 150, width: displayWidth, height: displayHeight))
+            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 152, width: displayWidth, height: displayHeight))
         }else{
-            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 200, width: displayWidth, height: displayHeight))
+            myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 202, width: displayWidth, height: displayHeight))
         }
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")

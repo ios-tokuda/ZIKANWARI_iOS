@@ -365,7 +365,8 @@ class Week_VC: UIViewController {
         //編集モードかどうかで処理を変える
         if self.edit{
             //各値の入力へ
-            AlertInput().WeekInput(week: self)
+            //AlertInput().WeekInput(week: self)
+            AlertInput().Select(week: self)
             
             
         }else{

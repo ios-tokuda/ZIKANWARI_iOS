@@ -6,6 +6,7 @@
 //  Copyright © 2017年 浅見朋. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 class AlertInput: UIAlertController
 {
@@ -15,6 +16,9 @@ class AlertInput: UIAlertController
     
     var temp = [""]
     
+    // デフォルトRealmを取得
+    let realm:Realm = try! Realm()
+
     
     func OneInput(one:One_VC){
         
@@ -80,14 +84,30 @@ class AlertInput: UIAlertController
         let alertCtr = UIAlertController(title: "編集",
                                          message: "入力してください",
                                          preferredStyle: .alert)
+    
+        //現在のタグが示すTimeTableを取得する
+        let Current:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(self.delegate.tag))
         
         // テキストフィールドの追加
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-            textField.placeholder = "教科"})
+            textField.placeholder = "教科"
+            //タグに対応したTimeTableが存在するならばその値を入力欄に予め代入しておく
+            if Current.count != 0{
+                textField.text = Current[0].Name
+            }
+        })
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-            textField.placeholder = "講師"})
+            textField.placeholder = "講師"
+            if Current.count != 0{
+                textField.text = Current[0].Teacher
+            }
+        })
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
-            textField.placeholder = "教室"})
+            textField.placeholder = "教室"
+            if Current.count != 0{
+                textField.text = Current[0].Room
+            }
+        })
         
         //追加ボタンの追加
         let addAction:UIAlertAction = UIAlertAction(title: "追加",
@@ -126,5 +146,45 @@ class AlertInput: UIAlertController
         week.present(alertCtr, animated: true, completion: nil)
         
     }
+    
+    
+    //編集するか消去するかを選択する
+    func Select(week: Week_VC)
+    {
+        let alertCtr = UIAlertController(title: "どうする？",
+                                         message: "選択してください",
+                                         preferredStyle: .alert)
+        
+        let addAction:UIAlertAction = UIAlertAction(title: "編集",
+                                                       style: UIAlertActionStyle.cancel,
+                                                       handler:{
+                                                        (action:UIAlertAction!) -> Void in
+                                                        print("編集")
+                                                        
+                                                        self.WeekInput(week: week)
+                                                        
+        })
+        
+        let deleteAction:UIAlertAction = UIAlertAction(title: "消去",
+                                                     style: UIAlertActionStyle.destructive,
+                                                     handler:{
+                                                        (action:UIAlertAction!) -> Void in
+                                                        print("消去")
+                                                        //現在のタグが示すTimeTableを取得する
+                                                        let Current:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(self.delegate.tag))
+                                                        
+                                                        
+                                                            try! self.realm.write{
+                                                                self.realm.delete(Current[0])
+                                                            }
+                                                        
+        })
+        
+        alertCtr.addAction(addAction)
+        alertCtr.addAction(deleteAction)
+
+        week.present(alertCtr, animated: true, completion: nil)
+    }
+    
     
 }

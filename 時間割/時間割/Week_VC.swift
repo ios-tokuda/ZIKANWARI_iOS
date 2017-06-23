@@ -14,6 +14,8 @@ class Week_VC: UIViewController {
     public let WEEK_DAYS :[String] = ["日", "月", "火", "水", "木", "金", "土"]
     
     
+    var tag = -1
+    
     //仮に表示するための変数
     var className = ""
     var classRoomName = ""
@@ -406,6 +408,7 @@ class Week_VC: UIViewController {
         }
         
         //編集モードかどうかでボタンの色を変えるため呼び出し
+        self.delegate.tag = -1              //1つ前にタップした授業のタグを編集してしまわないように初期化
         self.drawTTButtons()
     }
     //設定ボタンが押されたとき

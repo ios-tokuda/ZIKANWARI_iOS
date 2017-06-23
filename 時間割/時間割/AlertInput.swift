@@ -174,9 +174,12 @@ class AlertInput: UIAlertController
                                                         let Current:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(self.delegate.tag))
                                                         
                                                         
-                                                            try! self.realm.write{
-                                                                self.realm.delete(Current[0])
-                                                            }
+                                                        try! self.realm.write{
+                                                            self.realm.delete(Current)
+                                                        }
+                                                        //最新
+                                                        week.createCurriculum()
+                                                        
                                                         
         })
         

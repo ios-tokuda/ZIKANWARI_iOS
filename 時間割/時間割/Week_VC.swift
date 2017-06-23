@@ -41,7 +41,8 @@ class Week_VC: UIViewController {
     private var myRightButton1: UIBarButtonItem!
     private var myLeftButton: UIBarButtonItem!
     
-    
+    //削除中かどうか
+    var wDelete = false
     
     //deligateにおいてあるメンバにはここからアクセス
     //VCをまたいで値を渡したい時などに用いる
@@ -224,11 +225,18 @@ class Week_VC: UIViewController {
         
         
         //タグが初期値じゃなければ入力された値をTimeTableに代入する
-        if self.delegate.tag != -1{
+        if self.delegate.tag != -1 {
             let TT:TimeTable = TimeTable()
+            if wDelete{
+                TT.Name = ""
+                TT.Teacher = ""
+                TT.Room = ""
+                self.wDelete = false
+            }else{
             TT.Name = className
             TT.Teacher = teachName
             TT.Room = classRoomName
+        }
             TT.Tag = self.delegate.tag
             try! realm.write {
                 realm.add(TT, update: true)
@@ -314,8 +322,8 @@ class Week_VC: UIViewController {
                     if TableList.count > 1{//余計なデータがあった場合
                         for k in 1..<TableList.count{//消します。
                             print("余計なものがあった")
-                            try! realm.write {
-                                realm.delete(TableList[k])
+                            try! self.realm.write {
+                                self.realm.delete(TableList[k])
                             }
                         }
                     }

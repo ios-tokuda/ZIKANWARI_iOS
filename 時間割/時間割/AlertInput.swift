@@ -151,6 +151,7 @@ class AlertInput: UIAlertController
     //編集するか消去するかを選択する
     func Select(week: Week_VC)
     {
+        self.tag = self.delegate.tag
         let alertCtr = UIAlertController(title: "どうする？",
                                          message: "選択してください",
                                          preferredStyle: .alert)
@@ -170,14 +171,9 @@ class AlertInput: UIAlertController
                                                      handler:{
                                                         (action:UIAlertAction!) -> Void in
                                                         print("消去")
-                                                        //現在のタグが示すTimeTableを取得する
-                                                        let Current:Results<TimeTable> = self.realm.objects(TimeTable.self).filter("Tag == " + (String)(self.delegate.tag))
                                                         
+                                                        week.wDelete = true
                                                         
-                                                        try! self.realm.write{
-                                                            self.realm.delete(Current)
-                                                        }
-                                                        //最新
                                                         week.createCurriculum()
                                                         
                                                         

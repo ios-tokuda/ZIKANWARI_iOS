@@ -229,17 +229,21 @@ class Week_VC: UIViewController {
         //タグが初期値じゃなければ入力された値をTimeTableに代入する
         if self.delegate.tag != -1 {
             let TT:TimeTable = TimeTable()
-            if wDelete{
+            if wDelete{  //削除中
+                //TimeTableの値の削除
                 TT.Name = ""
                 TT.Teacher = ""
                 TT.Room = ""
                 self.wDelete = false
-            }else{
+            }else{//削除中でない
+                //入力された値の代入
             TT.Name = className
             TT.Teacher = teachName
             TT.Room = classRoomName
         }
+            //どのタグの値化を保存
             TT.Tag = self.delegate.tag
+            //書き出し
             try! realm.write {
                 realm.add(TT, update: true)
             }

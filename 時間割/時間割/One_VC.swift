@@ -239,13 +239,13 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     {
         
         //タグが初期値でなければRealmに値を代入する
-        if self.delegate.tag != -1
+        if self.tag != -1 && self.taskN != ""
         {
             let HW:HomeWork = HomeWork()
-            HW.Tag = self.delegate.tag
+            HW.Tag = self.tag
             HW.Name = self.taskN
             //HW.Ntime = self.deadline
-            HW.isFinished = false
+            HW.isFinished = false           //初期値は偽
             
             try! realm.write {
                 realm.add(HW, update: true)
@@ -299,12 +299,17 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //Cellの総数を返す.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("CellCount: \(taskName.count)")
-        return taskName.count
+        
+        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
+        return WorkList.count
     }
     
     
     //Cellに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
+        
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!
         let checkIcon: UIImage = UIImage(named: "check.jpg")!
@@ -320,8 +325,11 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 再利用するCellを取得する.
         //let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         
+        
+        
+        
         // Cellに値を設定する.
-        cell.textLabel!.text = "\(taskName[indexPath.row])"
+        cell.textLabel!.text = "\(WorkList[indexPath.row].Name)"
         cell.detailTextLabel?.text = "10/9   9:10" // 期限
         
         return cell

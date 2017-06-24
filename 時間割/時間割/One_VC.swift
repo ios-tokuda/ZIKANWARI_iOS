@@ -237,16 +237,21 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題セクションを作成(課題の変更を更新)
     func createSection()
     {
+        //選択したコマのタグをもつTimeTableをすべて呼び出す
+        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
+        let count = WorkList.count      //現在の課題数
         
         //タグが初期値でなければRealmに値を代入する
         if self.tag != -1 && self.taskN != ""
         {
             let HW:HomeWork = HomeWork()
-            HW.Tag = self.tag
-            HW.Name = self.taskN
+            HW.Id = count + 1               //現在の課題数+1
+            HW.Tag = self.tag               //コマのタグ
+            HW.Name = self.taskN            //課題名
             //HW.Ntime = self.deadline
             HW.isFinished = false           //初期値は偽
             
+            self.taskN = ""                 //セルをタップした際に課題がコピーされるのを防ぐ
             try! realm.write {
                 realm.add(HW, update: true)
             }
@@ -285,18 +290,26 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Cellが選択された際に呼び出される
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if finished{
-            self.finished = false
+        //コマの課題を追加
+        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
+        //選択されたセル
+        let currentTask = WorkList[indexPath.row]
+        
+        try! realm.write{
+            //タップされたセルの課題が終わったかどうか
+        if currentTask.isFinished{
+            currentTask.isFinished = false
         }else{
-            self.finished = true
+            currentTask.isFinished = true
+        }
         }
         self.createSection()
         print("Num: \(indexPath.row)")
-        print("Value: \(taskName[indexPath.row])")
+        print("Value: \(currentTask.Name)")
     }
     
     
-    //Cellの総数を返す.
+    //選択されたコマのタグのか台数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("CellCount: \(taskName.count)")
         
@@ -308,8 +321,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //Cellに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        //選択されたコマ
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
-        
+        //現在のセル
+        let currentTask = WorkList[indexPath.row]
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!
         let checkIcon: UIImage = UIImage(named: "check.jpg")!
@@ -317,7 +332,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         
         //生成したセルの画像部分に終了済みかどうかに合わせて代入
-        if !self.finished{
+        if !currentTask.isFinished{
             cell.imageView?.image = boxIcon
         }else{
             cell.imageView?.image = checkIcon
@@ -329,8 +344,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         // Cellに値を設定する.
-        cell.textLabel!.text = "\(WorkList[indexPath.row].Name)"
-        cell.detailTextLabel?.text = "10/9   9:10" // 期限
+        cell.textLabel!.text = "\(currentTask.Name)"
+        cell.detailTextLabel?.text = "10/9   9:10" // 期限    //picker導入後
         
         return cell
     }

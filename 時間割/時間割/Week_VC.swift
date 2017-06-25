@@ -229,11 +229,26 @@ class Week_VC: UIViewController {
         //タグが初期値じゃなければ入力された値をTimeTableに代入する
         if self.delegate.tag != -1 {
             let TT:TimeTable = TimeTable()
+            
+            let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.delegate.tag))
+            
             if wDelete{  //削除中
                 //TimeTableの値の削除
                 TT.Name = ""
                 TT.Teacher = ""
                 TT.Room = ""
+                
+                //HomeWorkの値を削除
+                if WorkList.count > 0{  //課題が1つでもあるとき
+                    for i in 0 ..< WorkList.count{
+                        //すべての課題を削除する
+                        let current = WorkList[i]
+                        try! self.realm.write(){
+                            self.realm.delete(current)
+                        }
+                    }
+                }
+                
                 self.wDelete = false
             }else{//削除中でない
                 //入力された値の代入
@@ -241,7 +256,7 @@ class Week_VC: UIViewController {
             TT.Teacher = teachName
             TT.Room = classRoomName
         }
-            //どのタグの値化を保存
+            //どのタグの値かを保存
             TT.Tag = self.delegate.tag
             //書き出し
             try! realm.write {

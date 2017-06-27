@@ -60,8 +60,11 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //ナビゲーションボタンの生成
     private var myRightButton: UIBarButtonItem!
     
-
-
+    //ピッカーを配置
+    let pickerView = UIDatePicker()
+    var vi:UIView!
+    var textField: UITextField!
+    var toolBar:UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +95,31 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.createSection()
         
         self.createDisplay()
+        
+        
+        pickerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: pickerView.bounds.size.height)
+        // 値が変わった際のイベントを登録する.
+        pickerView.addTarget(self, action: #selector(self.onDidChangeDate(sender:)), for: .valueChanged)
+        
+        vi = UIView(frame: pickerView.bounds)
+        vi.backgroundColor = UIColor.white
+        vi.addSubview(pickerView)
+        
+        textField.inputView = vi
+        
+        toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.gray
+        let doneButton   = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.donePressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.cancelPressed))
+        let spaceButton  = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+        textField.inputAccessoryView = toolBar
+        
+        
 
     }
     
@@ -350,16 +378,46 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
+    ///////////////////////////////////////
+    //ピッカー関連
+    //Pickerの Doneが押された時
+    func donePressed() {
+        view.endEditing(true)
+    }
+    
+    //pickerの Cancelが押された時
+    func cancelPressed() {
+        textField.text = ""
+        view.endEditing(true)
+    }
+    //pickerが操作された際に自動的にその値を取得した上で実行されます
+    internal func onDidChangeDate(sender: UIDatePicker){
+        
+        // フォーマットを生成.
+        let myDateFormatter: DateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        
+        // 日付をフォーマットに則って取得.
+        let mySelectedDate: String = myDateFormatter.string(from: sender.date)
+        self.textField.text = mySelectedDate as String
+    }
+    
+    
+    //////////////////
+    //ピッカーの問題となる場所
+    //////////////////
     func sendPickTime()
     {
-        
-        
+        print("ぬるま湯なんかに浸かってんじゃねぇよ！！")
+        pickerView.becomeFirstResponder()
+        /*
         // 遷移するViewを定義する.
         let picktime: UIViewController = PickTime()
         // Viewの移動する.
         self.navigationController?.pushViewController(picktime, animated: true)
         
-
+*/
     }
     
 }

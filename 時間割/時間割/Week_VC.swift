@@ -410,9 +410,19 @@ class Week_VC: UIViewController {
             }
         }
     }
+    
+    
     internal func AllHWButton(sender: UIButton){
         print("課題リストボタンが押されたんだよぉ！")
+        
+        // 遷移するViewを定義する.
+        let mySecondViewController: UIViewController = File()
+        // Viewの移動する.
+        self.navigationController?.pushViewController(mySecondViewController, animated: true)
+        //self.present(mySecondViewController, animated: true, completion: nil)
     }
+    
+    
     //編集ボタンが押されたとき
     internal func EditButton(sender: UIButton){
         print("編集ボタンが押されました")

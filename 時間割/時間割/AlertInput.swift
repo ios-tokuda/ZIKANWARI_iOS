@@ -49,16 +49,16 @@ class AlertInput: UIAlertController
                                                         if let textFields = alertCtr.textFields {
                                                             
                                                             // アラートに含まれるすべてのテキストフィールドを調べる
-                                                            for textField in textFields {
+                                                            //for textField in textFields {
                                                                 //self.delegate.taskName = textField.text!
                                                                 //one.taskName.append(textField.text!)
-                                                                one.taskN = textField.text!
+                                                                one.taskN = textFields[0].text!
                                                                 
                                                                 one.taskExist = true    //バグ(1)解決のための苦肉の策
                                                                 one.createSection()
 
-                                                                print(textField.text!)
-                                                            }
+                                                                print(textFields[0].text!)
+                                                            //}
                                                         }
                                                         
         })

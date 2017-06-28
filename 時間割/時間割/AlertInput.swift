@@ -30,7 +30,14 @@ class AlertInput: UIAlertController
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "テキスト"
         })
+        alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
+            textField.placeholder = "日時"
+        })
         
+        var textFields = alertCtr.textFields
+        one.textField = textFields?[1]
+        textFields?[1].inputView = one.vi
+        textFields?[1].inputAccessoryView = one.toolBar
         
         
         let cancelAction:UIAlertAction = UIAlertAction(title: "追加",
@@ -56,14 +63,14 @@ class AlertInput: UIAlertController
                                                         
         })
         
-        let timeAction:UIAlertAction = UIAlertAction(title: "日時",
+        /*let timeAction:UIAlertAction = UIAlertAction(title: "日時",
                                                         style: UIAlertActionStyle.default,
                                                         handler:{
                                                             (action:UIAlertAction!) -> Void in
                                                             print("日時")
                                                             
                                                             one.sendPickTime()
-        })
+        })*/
         
         let destructiveAction:UIAlertAction = UIAlertAction(title: "Cancel",
                                                             style: UIAlertActionStyle.destructive,
@@ -73,7 +80,7 @@ class AlertInput: UIAlertController
         })
         
         alertCtr.addAction(cancelAction)
-        alertCtr.addAction(timeAction)
+        //alertCtr.addAction(timeAction)
         alertCtr.addAction(destructiveAction)
         
         one.present(alertCtr, animated: true, completion: nil)

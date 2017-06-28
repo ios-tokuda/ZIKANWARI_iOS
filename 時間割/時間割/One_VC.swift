@@ -105,19 +105,19 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         vi.backgroundColor = UIColor.white
         vi.addSubview(pickerView)
         
-        textField.inputView = vi
+        //textField.inputView = vi
         
         toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.gray
-        let doneButton   = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.donePressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.cancelPressed))
-        let spaceButton  = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        //let doneButton   = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.donePressed))
+        //let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.cancelPressed))
+        //let spaceButton  = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        //toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
-        textField.inputAccessoryView = toolBar
+        //textField.inputAccessoryView = toolBar
         
         
 
@@ -409,8 +409,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //////////////////
     func sendPickTime()
     {
-        print("ぬるま湯なんかに浸かってんじゃねぇよ！！")
+        print("ぬるま湯なんかに浸かってんじゃねぇよお前！！")
         pickerView.becomeFirstResponder()
+        toolBar.becomeFirstResponder()
+        vi.becomeFirstResponder()
         /*
         // 遷移するViewを定義する.
         let picktime: UIViewController = PickTime()

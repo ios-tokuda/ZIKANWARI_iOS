@@ -325,19 +325,20 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         try! realm.write{
             //タップされたセルの課題が終わったかどうか
-        if currentTask.isFinished{
-            currentTask.isFinished = false
-        }else{
-            currentTask.isFinished = true
+            if currentTask.isFinished{
+                currentTask.isFinished = false
+            }else{
+                currentTask.isFinished = true
+            }
         }
-        }
+        self.taskExist = true
         self.createSection()
         print("Num: \(indexPath.row)")
         print("Value: \(currentTask.Name)")
     }
     
     
-    //選択されたコマのタグのか台数を返す
+    //選択されたコマのタグの課題数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("CellCount: \(taskName.count)")
         
@@ -394,9 +395,12 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //pickerが操作された際に自動的にその値を取得した上で実行されます
     internal func onDidChangeDate(sender: UIDatePicker){
         
+        
+        
         // フォーマットを生成.
         let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        myDateFormatter.locale = Locale(identifier: "ja_JP_POSIX")
+        myDateFormatter.dateFormat = "MM/dd hh:mm"
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: String = myDateFormatter.string(from: sender.date)

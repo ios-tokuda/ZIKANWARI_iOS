@@ -25,6 +25,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var deadline: [String] = ["aaa"]             //
     
     var taskN = ""
+    var timeNString = ""
     
     //Realmに保存された課題を入れる変数
     var WorkList:Results<HomeWork>!
@@ -32,6 +33,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // デフォルトRealmを取得
     let realm:Realm = try! Realm()
     
+    //Realmに追加する期限
+    var timeN: Date? = nil
     
     //バグ(1)セルが無いときにセルを追加するとずれる
     //バグ(1)解決のための変数
@@ -278,6 +281,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             HW.Name = self.taskN            //課題名
             //HW.Ntime = self.deadline
             HW.isFinished = false           //初期値は偽
+            HW.NTime = self.timeN           //提出期限
+            HW.NTimeString = self.timeNString   //提出期限(表示用)
+            
             
             self.taskN = ""                 //セルをタップした際に課題がコピーされるのを防ぐ
             try! realm.write {
@@ -374,7 +380,11 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // Cellに値を設定する.
         cell.textLabel!.text = "\(currentTask.Name)"
-        cell.detailTextLabel?.text = "10/9   9:10" // 期限    //picker導入後
+        if currentTask.NTime != nil{
+            cell.detailTextLabel?.text = currentTask.NTimeString
+        }
+        
+//        cell.detailTextLabel?.text = "10/9   9:10" // 期限    //picker導入後
         
         return cell
     }
@@ -404,6 +414,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: String = myDateFormatter.string(from: sender.date)
+        timeN = sender.date
+        timeNString = myDateFormatter.string(from: sender.date)
         self.textField.text = mySelectedDate as String
     }
     

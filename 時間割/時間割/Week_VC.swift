@@ -16,7 +16,7 @@ class Week_VC: UIViewController {
     
     var tag = -1
     
-    //仮に表示するための変数
+    //Alertから入力されRealmに保存される変数
     var className = ""
     var classRoomName = ""
     var teachName = ""
@@ -245,7 +245,7 @@ class Week_VC: UIViewController {
                         self.realm.delete(current)
                     }
                 }
-                                
+                
                 self.wDelete = false
             }else{//削除中でない
                 //入力された値の代入

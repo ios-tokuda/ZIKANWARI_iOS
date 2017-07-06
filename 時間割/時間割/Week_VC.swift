@@ -239,17 +239,13 @@ class Week_VC: UIViewController {
                 TT.Room = ""
                 
                 //HomeWorkの値を削除
-                if WorkList.count > 0{  //課題が1つでもあるとき
-                    for i in 0 ..< WorkList.count{
-                        
-                        //すべての課題を削除する
-                        let current = WorkList[i]
-                        try! self.realm.write(){
-                            self.realm.delete(current)
-                        }
+                while WorkList.count > 0{
+                    let current = WorkList[WorkList.count-1]
+                    try! self.realm.write(){
+                        self.realm.delete(current)
                     }
                 }
-                
+                                
                 self.wDelete = false
             }else{//削除中でない
                 //入力された値の代入

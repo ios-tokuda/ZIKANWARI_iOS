@@ -241,6 +241,7 @@ class Week_VC: UIViewController {
                 //HomeWorkの値を削除
                 if WorkList.count > 0{  //課題が1つでもあるとき
                     for i in 0 ..< WorkList.count{
+                        
                         //すべての課題を削除する
                         let current = WorkList[i]
                         try! self.realm.write(){

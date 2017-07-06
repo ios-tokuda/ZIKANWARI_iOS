@@ -212,7 +212,6 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         doorDownView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         clockDownView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
-        
         // Viewに追加する.
         self.view.addSubview(hitoDownView)
         self.view.addSubview(doorDownView)

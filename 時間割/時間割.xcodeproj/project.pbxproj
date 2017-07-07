@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03403F321EE95549007E981E /* PickTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03403F311EE95549007E981E /* PickTime.swift */; };
 		03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03519D5D1EDA672D00AB2172 /* AlertInput.swift */; };
+		03A26BBB1F0F40CB005B8484 /* AllTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A26BBA1F0F40CB005B8484 /* AllTask.swift */; };
 		03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E895931ED7BA1200F7EF85 /* TimeTable.swift */; };
 		0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F14E3E81ECC59CC002DE712 /* One_VC.swift */; };
 		0F41BF4D1ED1ECF500669CB8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41BF4C1ED1ECF500669CB8 /* Setting.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		03403F311EE95549007E981E /* PickTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickTime.swift; sourceTree = "<group>"; };
 		03519D5D1EDA672D00AB2172 /* AlertInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertInput.swift; sourceTree = "<group>"; };
+		03A26BBA1F0F40CB005B8484 /* AllTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllTask.swift; sourceTree = "<group>"; };
 		03E895931ED7BA1200F7EF85 /* TimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		0F14E3E81ECC59CC002DE712 /* One_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = One_VC.swift; sourceTree = "<group>"; };
 		0F41BF4C1ED1ECF500669CB8 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				03403F311EE95549007E981E /* PickTime.swift */,
 				03519D5D1EDA672D00AB2172 /* AlertInput.swift */,
 				0F14E3E81ECC59CC002DE712 /* One_VC.swift */,
+				03A26BBA1F0F40CB005B8484 /* AllTask.swift */,
 				0F5067C91EB74DB4007B7747 /* AppDelegate.swift */,
 				03E895931ED7BA1200F7EF85 /* TimeTable.swift */,
 				0F5067CB1EB74DB4007B7747 /* Week_VC.swift */,
@@ -342,6 +345,7 @@
 				03519D5E1EDA672D00AB2172 /* AlertInput.swift in Sources */,
 				03403F321EE95549007E981E /* PickTime.swift in Sources */,
 				03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */,
+				03A26BBB1F0F40CB005B8484 /* AllTask.swift in Sources */,
 				0F9584511EF7ADF900C7009F /* ViewController.swift in Sources */,
 				0FCA981D1F028B030090FC91 /* File.swift in Sources */,
 				0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */,

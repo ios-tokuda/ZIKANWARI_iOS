@@ -257,9 +257,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題セクションを作成(課題の変更を更新)
     func createSection()
     {
-        //選択したコマのタグをもつTimeTableをすべて呼び出す
-        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
-        let count = WorkList.count      //現在の課題数
+        //id設定のためすべてのHomeWorkの数を取得し、countに代入する
+        let AllWorkList:Results<HomeWork> = self.realm.objects(HomeWork.self)
+        let count = AllWorkList.count      //現在の課題数
         
         //タグが初期値でなければRealmに値を代入する
         if self.tag != -1 && self.taskN != ""

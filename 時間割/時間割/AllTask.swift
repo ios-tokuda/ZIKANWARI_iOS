@@ -93,6 +93,21 @@ class AllTask: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd hh:mm"
+        let now = Date()
+        formatter.string(from: now)
+        
+        
+        if currentTask.isFinished == false{
+            if formatter.string(from: now) < currentTask.NTimeString{
+                cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.2)
+            }else{
+                cell.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+            }
+        }
+        
+        
         // Cellに値を設定する.
         cell.textLabel!.text = "\(currentTable[0].Name)"
         cell.detailTextLabel?.text = currentTask.Name

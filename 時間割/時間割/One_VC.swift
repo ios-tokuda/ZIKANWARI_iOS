@@ -316,7 +316,18 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //コマの課題を追加
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
         //選択されたセル
-        let currentTask = WorkList[indexPath.row]
+        
+        //isFinishedがtrueなら前半、falseなら後半に保存し、その中でそれぞれ提出期限の昇順にソートする
+        let FirstList:Results<HomeWork> = WorkList.filter("isFinished == false").sorted(byKeyPath: "NTime", ascending: true)
+        let LateList:Results<HomeWork> = WorkList.filter("isFinished == true").sorted(byKeyPath: "NTime", ascending: true)
+        
+        let currentTask:HomeWork!
+        //課題が終了しているものをテーブルの上の方に、そうでないものをテーブルの下の方に表示する
+        if indexPath.row < FirstList.count{
+            currentTask = FirstList[indexPath.row]
+        }else{
+            currentTask = LateList[indexPath.row - FirstList.count]
+        }
         
         try! realm.write{
             //タップされたセルの課題が終わったかどうか
@@ -349,8 +360,22 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         //選択されたコマの課題
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
+        
+        //isFinishedがtrueなら前半、falseなら後半に保存し、その中でそれぞれ提出期限の昇順にソートする
+        let FirstList:Results<HomeWork> = WorkList.filter("isFinished == false").sorted(byKeyPath: "NTime", ascending: true)
+        let LateList:Results<HomeWork> = WorkList.filter("isFinished == true").sorted(byKeyPath: "NTime", ascending: true)
+        
+        let currentTask:HomeWork!
+        //課題が終了しているものをテーブルの上の方に、そうでないものをテーブルの下の方に表示する
+        if indexPath.row < FirstList.count{
+            currentTask = FirstList[indexPath.row]
+        }else{
+            currentTask = LateList[indexPath.row - FirstList.count]
+        }
+        
+        
         //現在のセル
-        let currentTask = WorkList[indexPath.row]
+        
         
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!

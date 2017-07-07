@@ -155,21 +155,15 @@ class ViewController: UIViewController {
     }
     
     func onClickMyButton(sender: UIButton) {
-        
-        
         if (youbi_flag==0) {
-            
             myButton.backgroundColor = UIColor.cyan
             youbi_flag=1;
         }
         else {
-            
-            
             myButton.backgroundColor = UIColor.white
             youbi_flag=0;
         }
     }
-
 }
 
 extension ViewController: UITableViewDelegate {
@@ -186,8 +180,6 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
-    
-    
 }
 
 extension ViewController: UITableViewDataSource {

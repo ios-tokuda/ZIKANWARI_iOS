@@ -140,12 +140,12 @@
 				0F5067D21EB74DB4007B7747 /* LaunchScreen.storyboard */,
 				0F5067D51EB74DB4007B7747 /* Info.plist */,
 				0F41BF4C1ED1ECF500669CB8 /* Setting.swift */,
+				0FCA981C1F028B030090FC91 /* File.swift */,
 				0F95844E1EF7AD6700C7009F /* hito2.jpg */,
 				0F95844A1EF7AD4D00C7009F /* clock2.jpg */,
 				0F95844C1EF7AD5A00C7009F /* door2.jpg */,
 				0FCA98181F027F7F0090FC91 /* box.jpg */,
 				0FCA981A1F027F8A0090FC91 /* check.jpg */,
-				0FCA981C1F028B030090FC91 /* File.swift */,
 			);
 			path = "時間割";
 			sourceTree = "<group>";

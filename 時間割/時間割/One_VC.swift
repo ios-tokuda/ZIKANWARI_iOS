@@ -379,7 +379,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!
-        let checkIcon: UIImage = UIImage(named: "check.jpg")!
+        let checkIcon: UIImage = UIImage(named: "check2.jpg")!
         
         //生成したセルの画像部分に終了済みかどうかに合わせて代入
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")

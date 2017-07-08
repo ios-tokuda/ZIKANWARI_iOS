@@ -18,24 +18,24 @@ let tableData = [sectionD, sectionK, sectionN, sectionO]
 
 class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
 
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let TableView = UITableView(frame: view.frame, style: .grouped)
         TableView.delegate = self
         TableView.dataSource = self
         view.addSubview(TableView)
-        
+
         // 設定されたタイトルを代入するとナビゲーションコントローラに反映される。
         self.title = "設定"
         // 背景色
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        
-        
+
+
+
+
     }
     func numberOfSections(in tableView: UITableView) -> Int{
         //セクションの個数
@@ -58,22 +58,75 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = cellData
         return cell
     }
-    
+
     //行がタップされた際に実行される。
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let title = sectionTitle[indexPath.section]
         let sectionData = tableData[indexPath.section]
         let cellData = sectionData[indexPath.row]
         print("\(title) \(cellData)")
-        print("\(indexPath) \(indexPath.section)")
+        //indexPath.scetion セクション番号
+        //indexPath.row セクション内の行番号
+        print("\(indexPath.row) \(indexPath.section)")
         //print("\(cellData.0)")
+        let alert = UIAlertController(title:nil, message:nil, preferredStyle: .alert)
         
+        alert.title = title + "の設定"
+        
+        alert.addAction(
+            UIAlertAction(
+                title:"確定",
+                style: .default,
+                handler:{(action) ->Void in
+                self.debug(action.title!)}
+            )
+        )
+        
+        alert.addAction(
+            UIAlertAction(
+                title:"キャンセル",
+                style: .cancel,
+                handler:{(action) ->Void in
+                    self.debug(action.title!)}
+            )
+        )
+        
+        
+        switch indexPath.section {
+            case 0:
+                alert.message = "曜日数を" + cellData + "日に設定します。"
+                fallthrough
+            case 1:
+                alert.message = "一日の時限数を" + cellData + "に設定します。"
+                fallthrough
+            case 3:
+                alert.message = "設定、時間割、課題データを初期化します。"
+                self.present(
+                    alert,
+                    animated: true,
+                    completion:{
+                        print("やったぜ。")
+                    }
+                )
+            //case 2:
+                //なんかピッカー表示させる。
+            
+            
+        default:
+            print("即死です。")
+        }
+
+        
+        
+    }
+
+    func debug(_ msg:String){
+        print(msg)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-}
 
+}

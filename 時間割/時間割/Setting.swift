@@ -17,7 +17,8 @@ let sectionO = ["初期化"]
 let tableData = [sectionD, sectionK, sectionN, sectionO]
 
 class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
-
+    //設定値をここにぶち込んで関数内でこれを元にあーだこーだする
+    var setSource:String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,13 +70,12 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
         //indexPath.row セクション内の行番号
         print("\(indexPath.row) \(indexPath.section)")
         //print("\(cellData.0)")
+        
+        self.setSource = "\(cellData)"
+        
+        //アラート
         let alert = UIAlertController(title:nil, message:nil, preferredStyle: .alert)
-        
         alert.title = title + "の設定"
-        
-        
-        
-        
         //キャンセルボタンとその動作
         alert.addAction(
             UIAlertAction(
@@ -97,13 +97,11 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
                     )
                 )
                 alert.message = "曜日数を" + cellData + "日に設定します。"
-                //これいる？
+                //表示
                 self.present(
                     alert,
                     animated: true,
-                    completion:{
-                        print("やったぜ。")
-                    }
+                    completion:nil
                 )
             case 1:
                 //確定ボタンとその動作
@@ -116,13 +114,11 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
                     )
                 )
                 alert.message = "一日の時限数を" + cellData + "に設定します。"
-                //これいる？
+                //表示
                 self.present(
                     alert,
                     animated: true,
-                    completion:{
-                        print("やったぜ。")
-                    }
+                    completion:nil
                 )
             case 3:
                 //確定ボタンとその動作
@@ -135,13 +131,11 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
                     )
                 )
                 alert.message = "設定、時間割、課題データを初期化します。"
-                //これいる？
+                //表示
                 self.present(
                     alert,
                     animated: true,
-                    completion:{
-                        print("やったぜ。")
-                    }
+                    completion:nil
                 )
             //case 2:
                 //なんかピッカー表示させる。
@@ -168,7 +162,7 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
     }*/
     
     func debug(_ msg:String){
-        print(msg)
+        print(self.setSource)
     }
     
     override func didReceiveMemoryWarning() {

@@ -73,34 +73,69 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
         
         alert.title = title + "の設定"
         
-        alert.addAction(
-            UIAlertAction(
-                title:"確定",
-                style: .default,
-                handler:{(action) ->Void in
-                self.debug(action.title!)}
-            )
-        )
         
+        
+        
+        //キャンセルボタンとその動作
         alert.addAction(
             UIAlertAction(
                 title:"キャンセル",
                 style: .cancel,
-                handler:{(action) ->Void in
-                    self.debug(action.title!)}
-            )
+                handler:nil)
         )
         
-        
+        //セクションごとに異なる動作を行う
         switch indexPath.section {
             case 0:
+                //確定ボタンとその動作
+                alert.addAction(
+                    UIAlertAction(
+                        title:"確定",
+                        style: .default,
+                        handler:{(action) ->Void in
+                            self.debug(action.title!)}
+                    )
+                )
                 alert.message = "曜日数を" + cellData + "日に設定します。"
-                fallthrough
+                //これいる？
+                self.present(
+                    alert,
+                    animated: true,
+                    completion:{
+                        print("やったぜ。")
+                    }
+                )
             case 1:
+                //確定ボタンとその動作
+                alert.addAction(
+                    UIAlertAction(
+                        title:"確定",
+                        style: .default,
+                        handler:{(action) ->Void in
+                            self.debug(action.title!)}
+                    )
+                )
                 alert.message = "一日の時限数を" + cellData + "に設定します。"
-                fallthrough
+                //これいる？
+                self.present(
+                    alert,
+                    animated: true,
+                    completion:{
+                        print("やったぜ。")
+                    }
+                )
             case 3:
+                //確定ボタンとその動作
+                alert.addAction(
+                    UIAlertAction(
+                        title:"確定",
+                        style: .default,
+                        handler:{(action) ->Void in
+                            self.debug(action.title!)}
+                    )
+                )
                 alert.message = "設定、時間割、課題データを初期化します。"
+                //これいる？
                 self.present(
                     alert,
                     animated: true,
@@ -120,6 +155,18 @@ class Setting: UIViewController,  UITableViewDelegate, UITableViewDataSource{
         
     }
 
+    /*func weekSetting(_ msg:String){
+        print(msg)
+    }
+    
+    func zigensuSetting(_ msg:String){
+        print(msg)
+    }
+    
+    func reset(_ msg:String){
+        print(msg)
+    }*/
+    
     func debug(_ msg:String){
         print(msg)
     }

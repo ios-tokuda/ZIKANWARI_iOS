@@ -47,13 +47,7 @@ class AlertInput: UIAlertController
         })
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "日時"
-            if self.delegate.ID != -1{  //編集で呼ばれた場合
-                textField.text = current[0].NTimeString     //編集している提出期限を予め代入する
-            }else{                      //編集で呼ばれてない場合
-                //現在時刻を予め代入する
-                let now = Date()
-                textField.text = myDateFormatter.string(for: now)
-            }
+           
         })
         
         var textFields = alertCtr.textFields
@@ -77,7 +71,7 @@ class AlertInput: UIAlertController
                                                                 one.taskN = textFields[0].text!
                                                                 
                                                                 one.taskExist = true    //バグ(1)解決のための苦肉の策
-                                                                self.delegate.ID = -1
+
                                                                 one.createSection()
 
                                                                 print(textFields[0].text!)

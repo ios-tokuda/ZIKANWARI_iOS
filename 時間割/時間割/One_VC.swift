@@ -136,6 +136,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //+ボタンが押された時のイベント
     internal func onClickMyButton(sender: UIButton){
+        self.delegate.ID = -1
         AlertInput().OneInput(one: self)
         //self.taskN = self.delegate.taskName
         print(taskN)
@@ -268,14 +269,26 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func createSection()
     {
         //id設定のためすべてのHomeWorkの数を取得し、countに代入する
-        let AllWorkList:Results<HomeWork> = self.realm.objects(HomeWork.self)
-        let count = AllWorkList.count      //現在の課題数
+        let AllTask:Results<HomeWork> = self.realm.objects(HomeWork.self)
+        let count = AllTask.count      //現在の課題数
         
         //タグが初期値でなければRealmに値を代入する
         if self.tag != -1 && self.taskN != ""
         {
             let HW:HomeWork = HomeWork()
-            HW.Id = count + 1               //現在の課題数+1
+            if self.delegate.ID != -1{
+            //HW.Id = self.tag * 100 + (count + 1)
+            HW.Id = self.delegate.ID        //現在の課題数+1
+            }else{
+                //HW.Id = self.delegate.ID
+                var num = Int(arc4random_uniform(100000))
+                for i in 0 ..< count{
+                    if AllTask[i].Id == num{
+                        num = Int(arc4random_uniform(100000))
+                    }
+                }
+                HW.Id = Int(num)
+            }
             HW.Tag = self.tag               //コマのタグ
             HW.Name = self.taskN            //課題名
             //HW.Ntime = self.deadline
@@ -284,6 +297,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             HW.NTimeString = self.timeNString   //提出期限(表示用)
             
             //Alertから入力される値の初期化
+            //self.delegate.ID = -1
             self.taskN = ""                 //セルをタップした際に課題がコピーされるのを防ぐ
             self.timeNString = ""
             
@@ -293,6 +307,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
 
+        //self.delegate.ID = -1
         
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
@@ -332,6 +347,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let LateList:Results<HomeWork> = WorkList.filter("isFinished == true").sorted(byKeyPath: "NTime", ascending: true)
         
         let currentTask:HomeWork!
+        
         //課題が終了しているものをテーブルの上の方に、そうでないものをテーブルの下の方に表示する
         if indexPath.row < FirstList.count{
             currentTask = FirstList[indexPath.row]
@@ -342,13 +358,14 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if self.editOne{
             self.delegate.ID = currentTask.Id
             AlertInput().SelectOne(one:self)
-        }
-        try! realm.write{
-            //タップされたセルの課題が終わったかどうか
-            if currentTask.isFinished{
-                currentTask.isFinished = false
-            }else{
-                currentTask.isFinished = true
+        }else{
+            try! realm.write{
+                //タップされたセルの課題が終わったかどうか
+                if currentTask.isFinished{
+                    currentTask.isFinished = false
+                }else{
+                    currentTask.isFinished = true
+                }
             }
         }
         //タップされた = 課題が存在する

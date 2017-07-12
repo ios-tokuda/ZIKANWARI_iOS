@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 let sectionTitle = ["曜日数", "時限", "通知", "その他"]
-let sectionD = ["5", "6", "7"]
+let sectionD = ["5(月~金)", "6(月~土)", "7(月~日)"]
 let sectionK = ["5", "6", "7", "8", "9"]
-let sectionN = ["通知時刻の設定"]
+let sectionN = ["課題リマインダ設定"]
 let sectionO = ["初期化"]
 let tableData = [sectionD, sectionK, sectionN, sectionO]
 

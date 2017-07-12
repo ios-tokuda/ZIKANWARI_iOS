@@ -16,6 +16,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var myTableView: UITableView!
     let imageNames = ["door2.jpg", "clock2.jpg", "hito2.jpg"]
     
+    //編集モードかどうか
+    var editOne = false
+
     
     //Alertで入力され、Realmに保存する変数
     var taskN = ""              //課題名
@@ -50,7 +53,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tag:Int = -1
     
     //ナビゲーションボタンの生成
-    private var myRightButton: UIBarButtonItem!
+    private var myRightButton1: UIBarButtonItem!        //追加ボタン
+    private var myRightButton2: UIBarButtonItem!        //編集ボタン
     
     //ピッカーを配置
     let pickerView = UIDatePicker()
@@ -75,10 +79,17 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         
         //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
+        myRightButton1 = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
         
-        //ナビゲーションバーの右に設置する
-        self.navigationItem.rightBarButtonItem = myRightButton
+        //編集ボタン
+        myRightButton2 = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
+        
+        // Barの右に配置するボタンを配列に格納する.
+        let myRightButton1s: NSArray = [myRightButton1, myRightButton2]
+
+        // Barの右側に複数配置する.
+        self.navigationItem.setRightBarButtonItems(myRightButton1s as? [UIBarButtonItem], animated: true)
+
         
         //見た目作成メソッド
         self.createSection()
@@ -126,7 +137,6 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //+ボタンが押された時のイベント
     internal func onClickMyButton(sender: UIButton){
         AlertInput().OneInput(one: self)
-        
         //self.taskN = self.delegate.taskName
         print(taskN)
         
@@ -328,7 +338,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }else{
             currentTask = LateList[indexPath.row - FirstList.count]
         }
-        
+        if self.editOne{
+            AlertInput().SelectOne(One:self)
+        }
         try! realm.write{
             //タップされたセルの課題が終わったかどうか
             if currentTask.isFinished{
@@ -372,14 +384,12 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }else{
             currentTask = LateList[indexPath.row - FirstList.count]
         }
-        
-        
-        //現在のセル
-        
+                
         
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!
         let checkIcon: UIImage = UIImage(named: "check2.jpg")!
+        
         
         //生成したセルの画像部分に終了済みかどうかに合わせて代入
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
@@ -392,6 +402,7 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // 再利用するCellを取得する.
         //let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         
+
         
         // Cellに値を設定する.
         cell.textLabel!.text = "\(currentTask.Name)"
@@ -399,8 +410,34 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = currentTask.NTimeString
         }
         
+        if self.editOne{
+            cell.backgroundColor = UIColor.lightGray
+        }
+        
         return cell
     }
+    
+    //編集ボタンが押されたとき
+    internal func EditButton(sender: UIButton){
+        print("編集ボタンが押されました")
+        
+        //編集モードかどうかを変更し、ボタンの文字も変更する
+        if self.editOne{
+            editOne = false
+            self.myRightButton2.title = "編集"
+        }else{
+            self.editOne = true
+            myRightButton2.title = "終了"
+        }
+        
+        //編集モードかどうかでボタンの色を変えるため呼び出し
+        self.delegate.tag = -1              //1つ前にタップした授業のタグを編集してしまわないように初期化
+
+        
+        self.taskExist = true
+        self.createSection()
+    }
+
     
     
     ///////////////////////////////////////

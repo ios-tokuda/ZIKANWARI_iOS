@@ -392,7 +392,7 @@ class Week_VC: UIViewController {
         if self.edit{
             //各値の入力へ
             //AlertInput().WeekInput(week: self)
-            AlertInput().Select(week: self)
+            AlertInput().SelectWeek(week: self)
             
             
         }else{

@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var tag:Int = -1
     
+    //selectを呼び出したViewControllerの種類
+    var VC = ""
+    
     //Alertinputから値を渡すための変数
     var taskName:String!
     var timeName:String!

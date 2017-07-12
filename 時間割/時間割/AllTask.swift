@@ -109,8 +109,8 @@ class AllTask: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         // Cellに値を設定する.
-        cell.textLabel!.text = "\(currentTable[0].Name)"
-        cell.detailTextLabel?.text = currentTask.Name
+        cell.textLabel!.text = "\(currentTask.Name)"
+        cell.detailTextLabel?.text = currentTable[0].Name
 
         
         return cell

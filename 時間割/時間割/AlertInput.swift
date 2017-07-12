@@ -154,9 +154,51 @@ class AlertInput: UIAlertController
         
     }
     
+    //編集するか消去するかを選択する
+    func SelectOne(One: One_VC)
+    {
+//        self.tag = self.delegate.tag
+//        let alertCtr = UIAlertController(title: "どうする？",
+//                                         message: "選択してください",
+//                                         preferredStyle: .alert)
+//        
+//        let addAction:UIAlertAction = UIAlertAction(title: "編集",
+//                                                    style: UIAlertActionStyle.cancel,
+//                                                    handler:{
+//                                                        (action:UIAlertAction!) -> Void in
+//                                                        print("編集")
+//                                                        
+//                                                        self.WeekInput(week: week)
+//                                                        
+//        })
+//        
+//        let deleteAction:UIAlertAction = UIAlertAction(title: "消去",
+//                                                       style: UIAlertActionStyle.destructive,
+//                                                       handler:{
+//                                                        (action:UIAlertAction!) -> Void in
+//                                                        print("消去")
+//                                                        
+//                                                        week.wDelete = true
+//                                                        
+//                                                        week.createCurriculum()
+//                                                        
+//                                                        
+//        })
+//        
+//        alertCtr.addAction(addAction)
+//        alertCtr.addAction(deleteAction)
+//        
+//        week.present(alertCtr, animated: true, completion: nil)
+//    }
+//    
+//    
+}
+
+    
+    
     
     //編集するか消去するかを選択する
-    func Select(week: Week_VC)
+    func SelectWeek(week: Week_VC)
     {
         self.tag = self.delegate.tag
         let alertCtr = UIAlertController(title: "どうする？",

@@ -16,25 +16,23 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var myTableView: UITableView!
     let imageNames = ["door2.jpg", "clock2.jpg", "hito2.jpg"]
     
-    //セルに表示するテキストをいじるときのやつ
-    let tempS = "おまけ"
+    //編集モードかどうか
+    var editOne = false
+
     
-    //課題が達成したかどうかの判別(最終的にはHomeWorkクラス作成)
-    var finished = false
-    
-    var deadline: [String] = ["aaa"]             //
-    
-    var taskN = ""
-    
-    //Realmに保存された課題を入れる変数
-    var WorkList:Results<HomeWork>!
+    //Alertで入力され、Realmに保存する変数
+    var taskN = ""              //課題名
+    var timeN: Date? = nil      //提出期限
+    var timeNString = ""        //提出期限((表示用)
     
     // デフォルトRealmを取得
     let realm:Realm = try! Realm()
     
+    //Realmに保存された課題を入れる変数
+    var WorkList:Results<HomeWork>!
     
-    //バグ(1)セルが無いときにセルを追加するとずれる
-    //バグ(1)解決のための変数
+
+    //テーブルをいじるとテーブルが大幅にずれるのを防ぐ変数
     var taskExist = false
     
     
@@ -44,9 +42,6 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // Viewの高さと幅を取得する.
     var displayWidth: CGFloat!
     var displayHeight: CGFloat!
-    
-    
-    var inputKadai: UITextView!
     
     //deligateにおいてあるメンバにはここからアクセス
     //VCをまたいで値を渡したい時などに用いる
@@ -58,7 +53,8 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tag:Int = -1
     
     //ナビゲーションボタンの生成
-    private var myRightButton: UIBarButtonItem!
+    private var myRightButton1: UIBarButtonItem!        //追加ボタン
+    private var myRightButton2: UIBarButtonItem!        //編集ボタン
     
     //ピッカーを配置
     let pickerView = UIDatePicker()
@@ -69,12 +65,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Week_VCでタップされたコマのタグを取得
         self.tag = self.delegate.tag
                 print("sender.tag: \(self.tag)")
         
-        
-        //NavigationControllerのタイトルを設定する
-        self.title = "講義名"
         
         // Status Barの高さを取得をする.
         barHeight = UIApplication.shared.statusBarFrame.size.height
@@ -84,18 +78,36 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         displayHeight = self.view.frame.height
 
         
-        
         //右ボタンを作成する
-        myRightButton = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
+        myRightButton1 = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(One_VC.onClickMyButton(sender:)))
         
-        //ナビゲーションバーの右に設置する
-        self.navigationItem.rightBarButtonItem = myRightButton
+        //編集ボタン
+        myRightButton2 = UIBarButtonItem(title: "編集", style: .plain, target: self, action: #selector(self.EditButton(sender:)))
         
+        // Barの右に配置するボタンを配列に格納する.
+        let myRightButton1s: NSArray = [myRightButton1, myRightButton2]
+
+        // Barの右側に複数配置する.
+        self.navigationItem.setRightBarButtonItems(myRightButton1s as? [UIBarButtonItem], animated: true)
+
         
+        //見た目作成メソッド
         self.createSection()
-        
         self.createDisplay()
         
+        
+        self.picktime()
+
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recrp0eated.
+    }
+    
+    
+    func picktime()
+    {
         
         pickerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: pickerView.bounds.size.height)
         // 値が変わった際のイベントを登録する.
@@ -119,21 +131,13 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         toolBar.sizeToFit()
         //textField.inputAccessoryView = toolBar
         
-        
-
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recrp0eated.
-    }
-    
     
     
     //+ボタンが押された時のイベント
     internal func onClickMyButton(sender: UIButton){
+        self.delegate.ID = -1
         AlertInput().OneInput(one: self)
-        
         //self.taskN = self.delegate.taskName
         print(taskN)
         
@@ -143,12 +147,9 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題以外の表示部分の作成
     func createDisplay()
     {
-        Appearance()
-        
-        Icon()
-        
-        cLabel()
-        
+        Appearance()    //枠作成
+        Icon()          //講師名、教室、授業時間がひと目で分かるアイコンの配置
+        cLabel()        //指定されたタグの講義の情報をアイコンの横に表示
     }
     
     //外枠より少し小さい内枠をあとからviewに追加することによって枠を作る
@@ -163,9 +164,11 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //帯
         let band : UIView = UIView(frame: CGRect(x: 0, y: barHeight+150, width: displayWidth, height: 50))
         
+        //帯を装飾するだけの線
         let oLine0 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+150, width: displayWidth, height: 2))
         let oLine1 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+195, width: displayWidth, height: 2))
         let oLine2 : UIView = UIView(frame: CGRect(x: 0, y: barHeight+200, width: displayWidth, height: 2))
+        
         //それぞれの指定
         frame.backgroundColor = self.delegate.BGColor
         innerFrame.backgroundColor = UIColor.white
@@ -265,40 +268,57 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //課題セクションを作成(課題の変更を更新)
     func createSection()
     {
-        //選択したコマのタグをもつTimeTableをすべて呼び出す
-        let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
-        let count = WorkList.count      //現在の課題数
+        //id設定のためすべてのHomeWorkの数を取得し、countに代入する
+        let AllTask:Results<HomeWork> = self.realm.objects(HomeWork.self)
+        let count = AllTask.count      //現在の課題数
         
         //タグが初期値でなければRealmに値を代入する
         if self.tag != -1 && self.taskN != ""
         {
             let HW:HomeWork = HomeWork()
-            HW.Id = count + 1               //現在の課題数+1
+            if self.delegate.ID != -1{
+            //HW.Id = self.tag * 100 + (count + 1)
+            HW.Id = self.delegate.ID        //現在の課題数+1
+            }else{
+                //HW.Id = self.delegate.ID
+                var num = Int(arc4random_uniform(100000))
+                for i in 0 ..< count{
+                    if AllTask[i].Id == num{
+                        num = Int(arc4random_uniform(100000))
+                    }
+                }
+                HW.Id = Int(num)
+            }
             HW.Tag = self.tag               //コマのタグ
             HW.Name = self.taskN            //課題名
             //HW.Ntime = self.deadline
             HW.isFinished = false           //初期値は偽
+            HW.NTime = self.timeN           //提出期限
+            HW.NTimeString = self.timeNString   //提出期限(表示用)
             
+            //Alertから入力される値の初期化
+            //self.delegate.ID = -1
             self.taskN = ""                 //セルをタップした際に課題がコピーされるのを防ぐ
+            self.timeNString = ""
+            
+            //追加
             try! realm.write {
                 realm.add(HW, update: true)
             }
         }
 
+        //self.delegate.ID = -1
         
         // 背景色
         self.view.backgroundColor = self.delegate.BGColor
         
-        // TableViewの生成(諸々の高さをずらして表示).
         
+        // TableViewの生成(諸々の高さをずらして表示).
         if taskExist == false{
             myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 152, width: displayWidth, height: displayHeight))
         }else{
             myTableView = UITableView(frame: CGRect(x: 0, y: barHeight + 202, width: displayWidth, height: displayHeight))
         }
-        
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.imageView?.image = UIImage(named: "hito2.jpg")!
         
         // Cell名の登録をおこなう.
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
@@ -321,26 +341,46 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //コマの課題を追加
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
         //選択されたセル
-        let currentTask = WorkList[indexPath.row]
         
-        try! realm.write{
-            //タップされたセルの課題が終わったかどうか
-        if currentTask.isFinished{
-            currentTask.isFinished = false
+        //isFinishedがtrueなら前半、falseなら後半に保存し、その中でそれぞれ提出期限の昇順にソートする
+        let FirstList:Results<HomeWork> = WorkList.filter("isFinished == false").sorted(byKeyPath: "NTime", ascending: true)
+        let LateList:Results<HomeWork> = WorkList.filter("isFinished == true").sorted(byKeyPath: "NTime", ascending: true)
+        
+        let currentTask:HomeWork!
+        
+        //課題が終了しているものをテーブルの上の方に、そうでないものをテーブルの下の方に表示する
+        if indexPath.row < FirstList.count{
+            currentTask = FirstList[indexPath.row]
         }else{
-            currentTask.isFinished = true
+            currentTask = LateList[indexPath.row - FirstList.count]
         }
+        
+        if self.editOne{
+            self.delegate.ID = currentTask.Id
+            AlertInput().SelectOne(one:self)
+        }else{
+            try! realm.write{
+                //タップされたセルの課題が終わったかどうか
+                if currentTask.isFinished{
+                    currentTask.isFinished = false
+                }else{
+                    currentTask.isFinished = true
+                }
+            }
         }
+        //タップされた = 課題が存在する
+        self.taskExist = true
+        //更新
         self.createSection()
+        
+        //標準出力
         print("Num: \(indexPath.row)")
         print("Value: \(currentTask.Name)")
     }
     
     
-    //選択されたコマのタグのか台数を返す
+    //選択されたコマのタグの課題数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("CellCount: \(taskName.count)")
-        
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
         return WorkList.count
     }
@@ -349,34 +389,74 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //Cellに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //選択されたコマ
+        //選択されたコマの課題
         let WorkList:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Tag == " + (String)(self.tag))
-        //現在のセル
-        let currentTask = WorkList[indexPath.row]
+        
+        //isFinishedがtrueなら前半、falseなら後半に保存し、その中でそれぞれ提出期限の昇順にソートする
+        let FirstList:Results<HomeWork> = WorkList.filter("isFinished == false").sorted(byKeyPath: "NTime", ascending: true)
+        let LateList:Results<HomeWork> = WorkList.filter("isFinished == true").sorted(byKeyPath: "NTime", ascending: true)
+        
+        let currentTask:HomeWork!
+        //課題が終了しているものをテーブルの上の方に、そうでないものをテーブルの下の方に表示する
+        if indexPath.row < FirstList.count{
+            currentTask = FirstList[indexPath.row]
+        }else{
+            currentTask = LateList[indexPath.row - FirstList.count]
+        }
+                
+        
         //課題が終わったかどうかを表すチェックボックスの画像を生成
         let boxIcon: UIImage = UIImage(named: "box.jpg")!
-        let checkIcon: UIImage = UIImage(named: "check.jpg")!
+        let checkIcon: UIImage = UIImage(named: "check2.jpg")!
         
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         
         //生成したセルの画像部分に終了済みかどうかに合わせて代入
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         if !currentTask.isFinished{
             cell.imageView?.image = boxIcon
         }else{
             cell.imageView?.image = checkIcon
         }
+        
         // 再利用するCellを取得する.
         //let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
         
-        
-        
+
         
         // Cellに値を設定する.
         cell.textLabel!.text = "\(currentTask.Name)"
-        cell.detailTextLabel?.text = "10/9   9:10" // 期限    //picker導入後
+        if currentTask.NTime != nil{
+            cell.detailTextLabel?.text = currentTask.NTimeString
+        }
+        
+        if self.editOne{
+            cell.backgroundColor = UIColor.lightGray
+        }
         
         return cell
     }
+    
+    //編集ボタンが押されたとき
+    internal func EditButton(sender: UIButton){
+        print("編集ボタンが押されました")
+        
+        //編集モードかどうかを変更し、ボタンの文字も変更する
+        if self.editOne{
+            editOne = false
+            self.myRightButton2.title = "編集"
+        }else{
+            self.editOne = true
+            myRightButton2.title = "終了"
+        }
+        
+        //編集モードかどうかでボタンの色を変えるため呼び出し
+        self.delegate.tag = -1              //1つ前にタップした授業のタグを編集してしまわないように初期化
+
+        
+        self.taskExist = true
+        self.createSection()
+    }
+
     
     
     ///////////////////////////////////////
@@ -394,12 +474,17 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //pickerが操作された際に自動的にその値を取得した上で実行されます
     internal func onDidChangeDate(sender: UIDatePicker){
         
+        
+        
         // フォーマットを生成.
         let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        myDateFormatter.locale = Locale(identifier: "ja_JP_POSIX")
+        myDateFormatter.dateFormat = "MM/dd hh:mm"
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: String = myDateFormatter.string(from: sender.date)
+        timeN = sender.date
+        timeNString = myDateFormatter.string(from: sender.date)
         self.textField.text = mySelectedDate as String
     }
     

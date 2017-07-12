@@ -60,7 +60,8 @@ class File: UIViewController, UIPickerViewDelegate{
         
         // フォーマットを生成.
         let myDateFormatter: DateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        myDateFormatter.locale = Locale(identifier: "ja_JP_POSIX")
+        myDateFormatter.dateFormat = "MM/dd hh:mm"
         
         // 日付をフォーマットに則って取得.
         let mySelectedDate: String = myDateFormatter.string(from: sender.date)

@@ -27,6 +27,7 @@ class HomeWork :Object{
     dynamic var Tag:Int = -1    //対応する講義
     dynamic var Name:String = ""    //課題名
     dynamic var NTime:Date? = nil     //締め切り時刻
+    dynamic var NTimeString:String = "" //締め切り期限(表示用)
     dynamic var isFinished:Bool = false //終わってるか否か
     
     override static func primaryKey() -> String? {

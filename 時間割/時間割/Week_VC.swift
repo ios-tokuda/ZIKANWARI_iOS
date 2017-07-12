@@ -16,7 +16,7 @@ class Week_VC: UIViewController {
     
     var tag = -1
     
-    //仮に表示するための変数
+    //Alertから入力されRealmに保存される変数
     var className = ""
     var classRoomName = ""
     var teachName = ""
@@ -239,13 +239,10 @@ class Week_VC: UIViewController {
                 TT.Room = ""
                 
                 //HomeWorkの値を削除
-                if WorkList.count > 0{  //課題が1つでもあるとき
-                    for i in 0 ..< WorkList.count{
-                        //すべての課題を削除する
-                        let current = WorkList[i]
-                        try! self.realm.write(){
-                            self.realm.delete(current)
-                        }
+                while WorkList.count > 0{
+                    let current = WorkList[WorkList.count-1]
+                    try! self.realm.write(){
+                        self.realm.delete(current)
                     }
                 }
                 
@@ -395,7 +392,7 @@ class Week_VC: UIViewController {
         if self.edit{
             //各値の入力へ
             //AlertInput().WeekInput(week: self)
-            AlertInput().Select(week: self)
+            AlertInput().SelectWeek(week: self)
             
             
         }else{
@@ -416,7 +413,7 @@ class Week_VC: UIViewController {
         print("課題リストボタンが押されたんだよぉ！")
         
         // 遷移するViewを定義する.
-        let mySecondViewController: UIViewController = File()
+        let mySecondViewController: UIViewController = AllTask()
         // Viewの移動する.
         self.navigationController?.pushViewController(mySecondViewController, animated: true)
         //self.present(mySecondViewController, animated: true, completion: nil)

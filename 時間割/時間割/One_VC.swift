@@ -338,8 +338,10 @@ class One_VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }else{
             currentTask = LateList[indexPath.row - FirstList.count]
         }
+        
         if self.editOne{
-            AlertInput().SelectOne(One:self)
+            self.delegate.ID = currentTask.Id
+            AlertInput().SelectOne(one:self)
         }
         try! realm.write{
             //タップされたセルの課題が終わったかどうか

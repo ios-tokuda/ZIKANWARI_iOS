@@ -22,16 +22,38 @@ class AlertInput: UIAlertController
     
     func OneInput(one:One_VC){
         
+        //課題編集でこのメソッドが呼ばれた場合に必要
+        let current:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Id == " + (String)(self.delegate.ID))
+
+        
+        // フォーマットを生成.
+        let myDateFormatter: DateFormatter = DateFormatter()
+        myDateFormatter.locale = Locale(identifier: "ja_JP_POSIX")
+        myDateFormatter.dateFormat = "MM/dd hh:mm"
+        
         let alertCtr = UIAlertController(title: "課題",
                                          message: "入力してください",
                                          preferredStyle: .alert)
         
+        
+        
         // テキストフィールドを追加
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "テキスト"
+            if self.delegate.ID != -1{  //編集で呼ばれた場合
+                textField.text = current[0].Name    //編集している課題名を予め代入する
+            }
+            
         })
         alertCtr.addTextField(configurationHandler: {(textField: UITextField!) -> Void in
             textField.placeholder = "日時"
+            if self.delegate.ID != -1{  //編集で呼ばれた場合
+                textField.text = current[0].NTimeString     //編集している提出期限を予め代入する
+            }else{                      //編集で呼ばれてない場合
+                //現在時刻を予め代入する
+                let now = Date()
+                textField.text = myDateFormatter.string(for: now)
+            }
         })
         
         var textFields = alertCtr.textFields
@@ -55,6 +77,7 @@ class AlertInput: UIAlertController
                                                                 one.taskN = textFields[0].text!
                                                                 
                                                                 one.taskExist = true    //バグ(1)解決のための苦肉の策
+                                                                self.delegate.ID = -1
                                                                 one.createSection()
 
                                                                 print(textFields[0].text!)
@@ -155,49 +178,6 @@ class AlertInput: UIAlertController
     }
     
     //編集するか消去するかを選択する
-    func SelectOne(One: One_VC)
-    {
-//        self.tag = self.delegate.tag
-//        let alertCtr = UIAlertController(title: "どうする？",
-//                                         message: "選択してください",
-//                                         preferredStyle: .alert)
-//        
-//        let addAction:UIAlertAction = UIAlertAction(title: "編集",
-//                                                    style: UIAlertActionStyle.cancel,
-//                                                    handler:{
-//                                                        (action:UIAlertAction!) -> Void in
-//                                                        print("編集")
-//                                                        
-//                                                        self.WeekInput(week: week)
-//                                                        
-//        })
-//        
-//        let deleteAction:UIAlertAction = UIAlertAction(title: "消去",
-//                                                       style: UIAlertActionStyle.destructive,
-//                                                       handler:{
-//                                                        (action:UIAlertAction!) -> Void in
-//                                                        print("消去")
-//                                                        
-//                                                        week.wDelete = true
-//                                                        
-//                                                        week.createCurriculum()
-//                                                        
-//                                                        
-//        })
-//        
-//        alertCtr.addAction(addAction)
-//        alertCtr.addAction(deleteAction)
-//        
-//        week.present(alertCtr, animated: true, completion: nil)
-//    }
-//    
-//    
-}
-
-    
-    
-    
-    //編集するか消去するかを選択する
     func SelectWeek(week: Week_VC)
     {
         self.tag = self.delegate.tag
@@ -234,5 +214,48 @@ class AlertInput: UIAlertController
         week.present(alertCtr, animated: true, completion: nil)
     }
     
+    
+    
+    //編集するか消去するかを選択する
+    func SelectOne(one: One_VC)
+    {
+        self.tag = self.delegate.tag
+        let alertCtr = UIAlertController(title: "どうする？",
+                                         message: "選択してください",
+                                         preferredStyle: .alert)
+        
+        let addAction:UIAlertAction = UIAlertAction(title: "編集",
+                                                    style: UIAlertActionStyle.cancel,
+                                                    handler:{
+                                                        (action:UIAlertAction!) -> Void in
+                                                        print("編集")
+                                                        
+                                                        self.OneInput(one : one)
+                                                        
+        })
+        
+        let deleteAction:UIAlertAction = UIAlertAction(title: "消去",
+                                                       style: UIAlertActionStyle.destructive,
+                                                       handler:{
+                                                        (action:UIAlertAction!) -> Void in
+                                                        print("消去")
+                                                        
+                                                        let current:Results<HomeWork> = self.realm.objects(HomeWork.self).filter("Id == " + (String)(self.delegate.ID))
+                                                        
+                                                        try! self.realm.write {
+                                                            self.realm.delete(current)
+                                                        }
+                                                        self.delegate.ID = -1
+                                                        one.createSection()
+                                                        
+                                                        
+        })
+        
+        alertCtr.addAction(addAction)
+        alertCtr.addAction(deleteAction)
+        
+        one.present(alertCtr, animated: true, completion: nil)
+    }
+
     
 }

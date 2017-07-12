@@ -28,6 +28,8 @@
 		0FCA981D1F028B030090FC91 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA981C1F028B030090FC91 /* File.swift */; };
 		0FD04C631ECC63FD0084AE1C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C611ECC63FD0084AE1C /* Realm.framework */; };
 		0FD04C641ECC63FD0084AE1C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */; };
+		0FD227881F160CD100A713DD /* hei.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FD227871F160CD100A713DD /* hei.jpg */; };
+		0FD2278A1F160CFE00A713DD /* Launch_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD227891F160CFE00A713DD /* Launch_VC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		0FCA981C1F028B030090FC91 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		0FD04C611ECC63FD0084AE1C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		0FD04C621ECC63FD0084AE1C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		0FD227871F160CD100A713DD /* hei.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hei.jpg; path = ../../../Downloads/hei.jpg; sourceTree = "<group>"; };
+		0FD227891F160CFE00A713DD /* Launch_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Launch_VC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				0F5067C81EB74DB4007B7747 /* 時間割 */,
+				0FD227871F160CD100A713DD /* hei.jpg */,
 				0F5067DD1EB74DB5007B7747 /* 時間割Tests */,
 				0F5067E81EB74DB5007B7747 /* 時間割UITests */,
 				0F5067C71EB74DB4007B7747 /* Products */,
@@ -146,6 +151,7 @@
 				0F95844C1EF7AD5A00C7009F /* door2.jpg */,
 				0FCA98181F027F7F0090FC91 /* box.jpg */,
 				0FCA981A1F027F8A0090FC91 /* check.jpg */,
+				0FD227891F160CFE00A713DD /* Launch_VC.swift */,
 			);
 			path = "時間割";
 			sourceTree = "<group>";
@@ -286,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD227881F160CD100A713DD /* hei.jpg in Resources */,
 				0F95844F1EF7AD6700C7009F /* hito2.jpg in Resources */,
 				0F5067D41EB74DB4007B7747 /* LaunchScreen.storyboard in Resources */,
 				0F5067D11EB74DB4007B7747 /* Assets.xcassets in Resources */,
@@ -344,6 +351,7 @@
 				03E895941ED7BA1200F7EF85 /* TimeTable.swift in Sources */,
 				0F9584511EF7ADF900C7009F /* ViewController.swift in Sources */,
 				0FCA981D1F028B030090FC91 /* File.swift in Sources */,
+				0FD2278A1F160CFE00A713DD /* Launch_VC.swift in Sources */,
 				0F14E3E91ECC59CC002DE712 /* One_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

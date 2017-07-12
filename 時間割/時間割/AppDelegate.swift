@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {//[NSObject: AnyObject]?) -> Bool {
         
+        //起動時のviewcontroller
         // ViewControllerを生成する.
         let FirstViewController: UIViewController = Week_VC()
         
